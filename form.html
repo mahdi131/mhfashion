@@ -1,160 +1,53 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Order Form</title>
     <style>
         body {
-            margin-bottom: 50px;
             font-family: Arial, sans-serif;
-            background-color: #e6f7e6;
+            margin: 20px;
+            padding: 0;
         }
-        .order-container {
-            max-width: 800px;
-            margin: 20px auto;
-            background-color: #ccf0d1;
-            padding: 20px;
-            border: 2px solid #00b050;
-            border-radius: 10px;
-        }
-        .title {
-            text-align: center;
-            color: #004d00;
-            padding: 15px;
-            border-bottom: 2px solid #00b050;
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        .form-group label {
-            font-size: 14px;
-        }
-        .form-group input {
-            width: 100%;
-            padding: 10px;
-            font-size: 14px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            margin: 5px 0; /* Space only below the input */
-        }
-        .order-details {
-            background-color: #f9f9f9;
-            padding: 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            margin-bottom: 20px;
+        .product-container {
+            margin-bottom: 30px;
         }
         .product-item {
             margin-bottom: 15px;
-            display: flex; /* Flexbox to align items */
-            align-items: center; /* Center vertically */
-        }
-        .product-name {
-            font-size: 16px;
-        }
-        .product-image {
-            width: 50px;
-            height: 50px;
-            margin-right: 10px;
-            vertical-align: middle;
         }
         .options {
-            margin-left: 10px; /* Space between image and options */
-        }
-        .option-container {
-            margin-top: 5px; /* Space between option containers */
+            margin-left: 20px;
         }
         .quantity-container {
-            display: flex;
-            align-items: center;
+            display: inline-block;
             margin-left: 10px;
         }
-        .quantity-btn {
-            font-size: 16px;
-            padding: 5px 10px;
-            cursor: pointer;
-            border: 1px solid #ddd;
-            border-radius: 3px;
-            background-color: #f2f2f2;
-            margin: 0 5px;
-        }
         .total-price {
-            font-size: 18px;
             font-weight: bold;
-            color: #222;
-            text-align: right;
-            margin-top: 10px;
-        }
-        .order-button {
-            display: block;
-            width: 100%;
-            padding: 15px;
-            font-size: 18px;
-            color: #fff;
-            background-color: #00b050;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            text-align: center;
             margin-top: 20px;
         }
-        .order-button:hover {
-            background-color: #009543;
+        .order-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
         }
         .thank-you-container {
             display: none;
-            text-align: center;
-            background-color: #ccf0d1;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin: 20px auto;
-            max-width: 600px;
-        }
-        .thank-you-title {
-            font-size: 24px;
-            color: #004d00;
-            margin-bottom: 20px;
-        }
-        .thank-you-message {
-            font-size: 18px;
-            color: #222;
-            margin-bottom: 20px;
-        }
-        .contact-info {
-            font-size: 16px;
-            color: #555;
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
 
-<div class="order-container" id="orderContainer">
-    <h2 class="title">অর্ডার করতে নিচে তথ্যগুলো দিন</h2>
-    
-    <div class="form-group">
-        <label for="name">আপনার নাম (optional)</label>
-        <input type="text" id="name" placeholder="নাম লিখুন">
-    </div>
-    <div class="form-group">
-        <label for="address">সম্পূর্ণ ঠিকানা (optional)</label>
-        <input type="text" id="address" placeholder="House number and street name">
-    </div>
-    <div class="form-group">
-        <label for="phone">ফোন নাম্বার (optional)</label>
-        <input type="text" id="phone" placeholder="ফোন নাম্বার লিখুন">
-    </div>
-    <div class="form-group">
-        <label for="size">সাইজ (optional)</label>
-        <input type="text" id="size" placeholder="আপনার সাইজ লিখুন">
-    </div>
+<div class="product-container" id="orderContainer">
+    <h2>আপনার পণ্য নির্বাচন করুন</h2>
 
-    <div class="order-details">
-        <h3>Your Products</h3>
-
+    <div class="products">
         <!-- Product 1 -->
         <div class="product-item">
             <input type="checkbox" id="product-1" onchange="toggleProductOptions(1)">
@@ -302,7 +195,7 @@
             <div class="options" id="options-6" style="display: none;">
                 <div class="option-container">
                     <label>
-                        <input type="checkbox" id="option-6-no-hijab" value="2200" onchange="handleOptionChange(6, 'no-hijab', this)"> হিজাব ছাড়া - ৳ ২২০০
+                        <input type="checkbox" id="option-6-no-hijab" value="2200" onchange="handleOptionChange(6, 'no-hijab', this)"> হিজাব ছাড়া - ৳ ২২0০
                     </label>
                     <div class="quantity-container">
                         <button class="quantity-btn" onclick="updateQuantity(6, 'no-hijab', false)">-</button>
@@ -312,7 +205,7 @@
                 </div>
                 <div class="option-container">
                     <label>
-                        <input type="checkbox" id="option-6-with-hijab" value="2300" onchange="handleOptionChange(6, 'with-hijab', this)"> হিজাব সহ - ৳ ২৩০০
+                        <input type="checkbox" id="option-6-with-hijab" value="2300" onchange="handleOptionChange(6, 'with-hijab', this)"> হিজাব সহ - ৳ ২৩৩০০
                     </label>
                     <div class="quantity-container">
                         <button class="quantity-btn" onclick="updateQuantity(6, 'with-hijab', false)">-</button>
@@ -382,12 +275,23 @@
         <div class="total-price" id="totalPrice">মোট মূল্য: ৳ ০</div>
     </div>
 
+    <!-- Delivery Options -->
+    <div class="delivery-options">
+        <h3>ডেলিভারি চার্জ</h3>
+        <label>
+            <input type="radio" name="delivery" value="inside_dhaka" checked> ঢাকা শহরের মধ্যে - ৳ ৮০
+        </label>
+        <br>
+        <label>
+            <input type="radio" name="delivery" value="outside_dhaka"> ঢাকা শহরের বাইরে - ৳ ১৫০
+        </label>
+    </div>
+
     <button class="order-button" onclick="submitOrder()">অর্ডার করুন</button>
 
     <div class="thank-you-container" id="thankYouContainer">
         <h3 class="thank-you-title">ধন্যবাদ!</h3>
         <p class="thank-you-message">আপনার অর্ডার গ্রহণ করা হয়েছে।</p>
-        <p class="contact-info">যেকোনো প্রশ্নের জন্য আমাদের সাথে যোগাযোগ করুন।</p>
     </div>
 </div>
 
@@ -395,61 +299,68 @@
     function toggleProductOptions(productId) {
         const options = document.getElementById(`options-${productId}`);
         options.style.display = options.style.display === 'none' ? 'block' : 'none';
+
+        // Reset quantities if product is unchecked
+        if (options.style.display === 'none') {
+            resetQuantities(productId);
+        }
     }
 
     function handleOptionChange(productId, optionType, checkbox) {
         const quantityInput = document.getElementById(`quantity-${productId}-${optionType}`);
-        
         if (checkbox.checked) {
-            quantityInput.value = 1; // Automatically set quantity to 1
-            // Uncheck the other option if it's selected
-            const otherOption = optionType === 'no-hijab' ? 'with-hijab' : 'no-hijab';
-            document.getElementById(`option-${productId}-${otherOption}`).checked = false;
+            quantityInput.value = 1; // Automatically select 1 when checked
         } else {
-            quantityInput.value = 0; // Set quantity to 0 if unchecked
+            quantityInput.value = 0; // Reset quantity when unchecked
         }
-
         updateTotalPrice();
     }
 
     function updateQuantity(productId, optionType, increase) {
         const quantityInput = document.getElementById(`quantity-${productId}-${optionType}`);
-        let currentQuantity = parseInt(quantityInput.value);
-
+        let currentValue = parseInt(quantityInput.value);
         if (increase) {
-            currentQuantity++;
-        } else if (currentQuantity > 0) {
-            currentQuantity--;
+            quantityInput.value = currentValue + 1;
+        } else if (currentValue > 0) {
+            quantityInput.value = currentValue - 1;
         }
-        
-        quantityInput.value = currentQuantity;
-
-        // Check the corresponding checkbox if quantity > 0
-        const checkbox = document.getElementById(`option-${productId}-${optionType}`);
-        checkbox.checked = currentQuantity > 0;
-
         updateTotalPrice();
     }
 
-    function updateTotalPrice() {
-        let total = 0;
+    function resetQuantities(productId) {
+        const quantityInputs = document.querySelectorAll(`#options-${productId} input[type="number"]`);
+        quantityInputs.forEach(input => input.value = 0);
+    }
 
-        for (let i = 1; i <= 8; i++) { // Adjusting to include the new products
-            for (const option of ['no-hijab', 'with-hijab']) {
-                const quantity = parseInt(document.getElementById(`quantity-${i}-${option}`).value);
-                const price = parseInt(document.getElementById(`option-${i}-${option}`).value) || 0;
-                total += quantity * price;
+    function updateTotalPrice() {
+        let totalPrice = 0;
+        const deliveryCharge = document.querySelector('input[name="delivery"]:checked').value === 'inside_dhaka' ? 80 : 150;
+
+        // Calculate product prices
+        for (let i = 1; i <= 8; i++) {
+            const options = document.getElementById(`options-${i}`);
+            if (options && options.style.display !== 'none') {
+                const noHijabCheckbox = document.getElementById(`option-${i}-no-hijab`);
+                const withHijabCheckbox = document.getElementById(`option-${i}-with-hijab`);
+                
+                if (noHijabCheckbox.checked) {
+                    totalPrice += parseInt(noHijabCheckbox.value) * parseInt(document.getElementById(`quantity-${i}-no-hijab`).value);
+                }
+                if (withHijabCheckbox.checked) {
+                    totalPrice += parseInt(withHijabCheckbox.value) * parseInt(document.getElementById(`quantity-${i}-with-hijab`).value);
+                }
             }
         }
-
-        document.getElementById('totalPrice').textContent = `মোট মূল্য: ৳ ${total}`;
+        totalPrice += deliveryCharge; // Add delivery charge
+        document.getElementById("totalPrice").innerText = `মোট মূল্য: ৳ ${totalPrice}`;
     }
 
     function submitOrder() {
-        document.getElementById('orderContainer').style.display = 'none';
-        document.getElementById('thankYouContainer').style.display = 'block';
+        document.getElementById("orderContainer").style.display = "none";
+        document.getElementById("thankYouContainer").style.display = "block";
     }
 </script>
 
 </body>
 </html>
+

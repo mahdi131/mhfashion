@@ -7,9 +7,6 @@
     <style>
         body {
             margin-bottom: 50px;
-            -webkit-scrollbar { display: none; }
-            -ms-overflow-style: none;
-            scrollbar-width: none;
             font-family: Arial, sans-serif;
             background-color: #e6f7e6;
         }
@@ -221,23 +218,13 @@
 </div>
 
 <script>
-    // Get the product ID from the URL
-function getProductIdFromUrl() {
-    const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get('product');
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-    const productId = getProductIdFromUrl();
-    // You can use productId to display the product details on the page
-    console.log('Selected Product ID:', productId);
-});
-
 function toggleProductOptions(productId) {
     const optionsDiv = document.getElementById(`options-${productId}`);
+    // Toggle visibility of options based on checkbox status
     optionsDiv.style.display = optionsDiv.style.display === 'none' ? 'block' : 'none';
 }
 
+// Rest of the JavaScript code remains the same
 function updateQuantity(productId, option, increase) {
     const quantityInput = document.getElementById(`quantity-${productId}-${option}`);
     let currentValue = parseInt(quantityInput.value);

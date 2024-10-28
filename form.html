@@ -220,11 +220,13 @@
 <script>
 function toggleProductOptions(productId) {
     const optionsDiv = document.getElementById(`options-${productId}`);
-    // Toggle visibility of options based on checkbox status
-    optionsDiv.style.display = optionsDiv.style.display === 'none' ? 'block' : 'none';
+    const productCheckbox = document.getElementById(`product-${productId}`);
+    
+    // Show options only if product checkbox is checked
+    optionsDiv.style.display = productCheckbox.checked ? 'block' : 'none';
 }
 
-// Rest of the JavaScript code remains the same
+// Update quantity function
 function updateQuantity(productId, option, increase) {
     const quantityInput = document.getElementById(`quantity-${productId}-${option}`);
     let currentValue = parseInt(quantityInput.value);
@@ -236,6 +238,7 @@ function updateQuantity(productId, option, increase) {
     updateTotal();
 }
 
+// Update total price function
 function updateTotal() {
     let total = 0;
 

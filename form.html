@@ -274,60 +274,6 @@
 </div>
 
 <script>
-    function submitOrder() {
-    const name = document.getElementById('name').value;
-    const address = document.getElementById('address').value;
-    const phone = document.getElementById('phone').value;
-    const size = document.getElementById('size').value;
-    const delivery = document.querySelector('input[name="delivery"]:checked').value;
-    const totalPrice = document.getElementById('totalPrice').innerText.replace('মোট মূল্য: ৳ ', '');
-    
-    // Prepare the product options data
-    const products = [];
-    for (let i = 1; i <= 3; i++) {
-        const noHijabQuantity = document.getElementById(`quantity-${i}-no-hijab`).value;
-        const withHijabQuantity = document.getElementById(`quantity-${i}-with-hijab`).value;
-
-        if (noHijabQuantity > 0) {
-            products.push(`Product ${i}: No Hijab - Quantity: ${noHijabQuantity}`);
-        }
-        if (withHijabQuantity > 0) {
-            products.push(`Product ${i}: With Hijab - Quantity: ${withHijabQuantity}`);
-        }
-    }
-
-    // Send data to Google Sheets via the Apps Script
-    fetch('https://script.google.com/macros/s/AKfycbx42tyGLdG87WBVV1diI3zm1PmXkvc3uYlu-Hpg7EIcgcRkfhupObWGKWsXhRsahDWoLQ/exec', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            name: name,
-            address: address,
-            phone: phone,
-            size: size,
-            delivery: delivery,
-            totalPrice: totalPrice,
-            ...products.reduce((acc, curr, index) => {
-                acc[`product-${index + 1}`] = curr;
-                return acc;
-            }, {})
-        })
-    })
-    .then(response => {
-        if (response.ok) {
-            placeOrder(); // Call the placeOrder function to show the thank you message
-        } else {
-            alert('Error submitting order, please try again.');
-        }
-    })
-    .catch((error) => {
-        console.error('Error:', error);
-        alert('Error submitting order, please try again.');
-    });
-}
-
     function toggleProductOptions(productId) {
         const options = document.getElementById(`options-${productId}`);
         options.style.display = options.style.display === 'none' ? 'block' : 'none';
@@ -379,6 +325,59 @@
         orderContainer.style.display = 'none';
         thankYouContainer.style.display = 'block';
     }
+
+   function submitOrder() {
+    const name = document.getElementById('name').value;
+    const address = document.getElementById('address').value;
+    const phone = document.getElementById('phone').value;
+    const size = document.getElementById('size').value;
+    const delivery = document.querySelector('input[name="delivery"]:checked').value;
+    const totalPrice = document.getElementById('totalPrice').innerText.replace('মোট মূল্য: ৳ ', '');
+
+    // Prepare the product options data
+    const products = [];
+    for (let i = 1; i <= 3; i++) {
+        const noHijabQuantity = document.getElementById(`quantity-${i}-no-hijab`).value;
+        const withHijabQuantity = document.getElementById(`quantity-${i}-with-hijab`).value;
+
+        if (noHijabQuantity > 0) {
+            products.push(`Product ${i}: No Hijab - Quantity: ${noHijabQuantity}`);
+        }
+        if (withHijabQuantity > 0) {
+            products.push(`Product ${i}: With Hijab - Quantity: ${withHijabQuantity}`);
+        }
+    }
+
+    const data = {
+        name: name,
+        address: address,
+        phone: phone,
+        size: size,
+        delivery: delivery,
+        totalPrice: totalPrice,
+        products: products.join(', '), // Combine the product data into a single string
+    };
+
+    fetch('YOUR_DEPLOYMENT_URL', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => {
+        if (response.ok) {
+            placeOrder(); // Call the placeOrder function to show the thank you message
+        } else {
+            alert('Error submitting order, please try again.');
+        }
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+        alert('Error submitting order, please try again.');
+    });
+}
+
 </script>
 
 </body>

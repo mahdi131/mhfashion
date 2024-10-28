@@ -1,86 +1,159 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fashion Landing Page</title>
+    <title>Product Page</title>
     <style>
+        /* Reset some default styles */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        /* Body styles */
         body {
             font-family: Arial, sans-serif;
-            background-color: #fefefe;
-            padding-left: 20px;  /* Add space on the left */
-            padding-right: 20px; /* Add space on the right */
+            background-color: #f5f5f5;
+            color: #333;
         }
 
-        .header {
-            background-color: #f8c1c1;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .header-image img {
-            max-width: 100%; /* Make the image responsive */
+        /* Header section with image only */
+        .header img {
+            width: 100%;
             height: auto;
-            border-radius: 10px;
         }
 
-        nav {
-            background-color: #ff9999; /* Slightly darker for contrast */
+        /* Product Section */
+        .product-section {
+            text-align: center;
+            background-color: #ffebee;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .product-section h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .product-section p {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .product-section button {
+            padding: 10px 20px;
+            background-color: #ff9aa2;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        /* Product List Section */
+        .product-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            padding: 0 15px;
+        }
+
+        .product-card {
+            width: 200px;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
             padding: 15px;
             text-align: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
 
-        nav a {
-            margin: 0 15px;
-            text-decoration: none;
-            color: #000;
-        }
-
-        footer {
-            background-color: #f8c1c1;
-            text-align: center;
-            padding: 10px;
-            position: relative;
-            bottom: 0;
+        .product-card img {
             width: 100%;
+            height: auto;
+            border-radius: 5px;
+            margin-bottom: 10px;
         }
 
-        /* Responsive design */
-        @media (max-width: 600px) {
-            nav {
-                padding: 10px;
-            }
-            nav a {
-                display: block; /* Stack links on small screens */
-                margin: 5px 0;
-            }
+        .product-card p {
+            margin: 5px 0;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .product-card button {
+            margin-top: 10px;
+            padding: 8px 15px;
+            background-color: #3b5998;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .product-card button:hover {
+            background-color: #333;
         }
     </style>
 </head>
 <body>
-    <header class="header">
-        <div class="header-image">
-            <img src="Copy of Home.png" alt="Stylish fashion display with various outfits">
+
+    <!-- Header Section (Image Only) -->
+    <div class="header">
+        <img src="Copy of Home.png" alt="Header Image">
+    </div>
+
+    <!-- Product Section -->
+    <div class="product-section">
+        <h1>স্বল্পমূল্যে চমৎকার বোরকা কিনুন</h1>
+        <p>দেশী-বিদেশী বোরকা বাজারের সবচেয়ে কম দামে</p>
+        <button>অর্ডার করুন</button>
+    </div>
+
+    <!-- Product List Section -->
+    <div class="product-list">
+        <!-- Product Card -->
+        <div class="product-card">
+            <img src="441871073_122114791544308633_6659639184119792996_n_processed.jpg" alt="Product Image">
+            <p>হিজাব ছাড়া ৮৫০/=</p>
+            <p>হিজাব সহ ১১৫০/=</p>
+            <button>অর্ডার করুন</button>
         </div>
-    </header>
 
-    <nav>
-        <a href="#home">Home</a>
-        <a href="#about">About</a>
-        <a href="#collections">Collections</a>
-        <a href="#contact">Contact</a>
-    </nav>
+        <div class="product-card">
+            <img src="441871073_122114791544308633_6659639184119792996_n_processed.jpg" alt="Product Image">
+            <p>হিজাব ছাড়া ৯০০/=</p>
+            <p>হিজাব সহ ১২০০/=</p>
+            <button>অর্ডার করুন</button>
+        </div>
 
-    <footer>
-        <p>&copy; 2024 Fashion Brand. All Rights Reserved.</p>
-    </footer>
+        <div class="product-card">
+            <img src="441871073_122114791544308633_6659639184119792996_n_processed.jpg" alt="Product Image">
+            <p>হিজাব ছাড়া ৯০০/=</p>
+            <p>হিজাব সহ ১২০০/=</p>
+            <button>অর্ডার করুন</button>
+        </div>
+
+        <div class="product-card">
+            <img src="441871073_122114791544308633_6659639184119792996_n_processed.jpg" alt="Product Image">
+            <p>হিজাব ছাড়া ৯০০/=</p>
+            <p>হিজাব সহ ১২০০/=</p>
+            <button>অর্ডার করুন</button>
+        </div>
+
+        <div class="product-card">
+            <img src="441871073_122114791544308633_6659639184119792996_n_processed.jpg" alt="Product Image">
+            <p>হিজাব ছাড়া ৯০০/=</p>
+            <p>হিজাব সহ ১২০০/=</p>
+            <button>অর্ডার করুন</button>
+        </div>
+    </div>
+
 </body>
 </html>

@@ -243,6 +243,25 @@
         <div class="total-price" id="totalPrice">মোট মূল্য: ৳ ০</div>
     </div>
 
+    <div class="delivery-section">
+        <h3>ডেলিভারি তথ্য</h3>
+        <div class="form-group">
+            <label for="deliveryDate">ডেলিভারি তারিখ</label>
+            <input type="date" id="deliveryDate">
+        </div>
+        <div class="form-group">
+            <label for="deliveryTime">ডেলিভারি সময়</label>
+            <input type="time" id="deliveryTime">
+        </div>
+        <div class="form-group">
+            <label for="deliveryMethod">ডেলিভারি পদ্ধতি</label>
+            <select id="deliveryMethod">
+                <option value="standard">স্ট্যান্ডার্ড ডেলিভারি</option>
+                <option value="express">এক্সপ্রেস ডেলিভারি</option>
+            </select>
+        </div>
+    </div>
+
     <button class="order-button" id="submitOrder" onclick="submitOrder()">অর্ডার করুন</button>
     
     <div class="thank-you-container" id="thankYouMessage">
@@ -299,6 +318,9 @@
         const address = document.getElementById('address').value;
         const phone = document.getElementById('phone').value;
         const size = document.getElementById('size').value;
+        const deliveryDate = document.getElementById('deliveryDate').value;
+        const deliveryTime = document.getElementById('deliveryTime').value;
+        const deliveryMethod = document.getElementById('deliveryMethod').value;
 
         // Prepare order details
         const orderDetails = {
@@ -306,6 +328,9 @@
             address: address,
             phone: phone,
             size: size,
+            deliveryDate: deliveryDate,
+            deliveryTime: deliveryTime,
+            deliveryMethod: deliveryMethod,
             totalPrice: totalPrice,
             products: []
         };

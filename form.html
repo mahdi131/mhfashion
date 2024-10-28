@@ -49,6 +49,8 @@
         }
         .product-item {
             margin-bottom: 15px;
+            display: flex; /* Flexbox to align items */
+            align-items: center; /* Center vertically */
         }
         .product-name {
             font-size: 16px;
@@ -60,9 +62,10 @@
             vertical-align: middle;
         }
         .options {
-            margin-top: 10px;
-            padding-left: 20px;
-            display: none; /* Initially hidden */
+            margin-left: 10px; /* Space between image and options */
+        }
+        .option-container {
+            margin-top: 5px; /* Space between option containers */
         }
         .quantity-container {
             display: flex;
@@ -100,13 +103,6 @@
         }
         .order-button:hover {
             background-color: #009543;
-        }
-        .delivery-options {
-            margin-top: 20px;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            background-color: #f9f9f9;
         }
         .thank-you-container {
             display: none;
@@ -162,9 +158,7 @@
         <!-- Product 1 -->
         <div class="product-item">
             <input type="checkbox" id="product-1" onchange="toggleProductOptions(1)">
-            <img src="441871073_122114791544308633_6659639184119792996_n_processed.jpg" alt="প্রিমিয়াম জুবাই চেড়া কাট বোরকা" class="product-image">
-            <label for="product-1" class="product-name">প্রিমিয়াম জুবাই চেড়া কাট বোরকা</label>
-            
+            <img src="441871073_122114791544308633_6659639184119792996_n_processed.jpg" alt="Borka 1" class="product-image">            
             <div class="options" id="options-1">
                 <div class="option-container">
                     <label>
@@ -190,20 +184,8 @@
         </div>
     </div>
 
-    <!-- Delivery Options -->
-    <div class="delivery-options">
-        <h3>ডেলিভারি চার্জ</h3>
-        <label>
-            <input type="radio" name="delivery" value="80" onchange="updateTotal()"> ঢাকার ভিতরে- ৳৮০
-        </label><br>
-        <label>
-            <input type="radio" name="delivery" value="150" onchange="updateTotal()"> ঢাকার বাহিরে- ৳১৫০
-        </label><br>
-    </div>
-
     <div class="total-price" id="totalPrice">মোট: ৳ 0</div>
-
-    <!-- Order Button at Original Position -->
+    
     <button class="order-button" onclick="confirmOrder()">অর্ডার করুন</button>
 
 </div>
@@ -254,14 +236,6 @@ function updateTotal() {
         }
         if (withHijabCheckbox.checked) {
             total += withHijabQuantity * parseInt(withHijabCheckbox.value);
-        }
-    }
-
-    // Calculate delivery charge
-    const deliveryRadios = document.getElementsByName('delivery');
-    for (const radio of deliveryRadios) {
-        if (radio.checked) {
-            total += parseInt(radio.value);
         }
     }
 

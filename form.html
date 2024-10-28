@@ -250,6 +250,29 @@
 </div>
 
 <script>
+    // Get the product ID from the URL
+function getProductIdFromUrl() {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get('product');
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const productId = getProductIdFromUrl();
+
+    // Hide all product options initially
+    document.querySelectorAll('.options').forEach(option => {
+        option.style.display = 'none';
+    });
+
+    // Show options only for the specific product
+    if (productId) {
+        const optionsDiv = document.getElementById(`options-${productId}`);
+        if (optionsDiv) {
+            optionsDiv.style.display = 'block';
+        }
+    }
+});
+
     let totalAmount = 0;
 
     function toggleProductOptions(productId) {

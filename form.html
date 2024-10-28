@@ -296,6 +296,58 @@
         document.getElementById("orderContainer").style.display = "none";
         document.getElementById("thankYouContainer").style.display = "block";
     }
+
+    // collect data using java script //
+
+    
+    function collectFormData() {
+    const name = document.getElementById("name").value;
+    const address = document.getElementById("address").value;
+    const phone = document.getElementById("phone").value;
+    const size = document.getElementById("size").value;
+
+    // Product selection and quantities
+    const products = [];
+    for (let i = 1; i <= 3; i++) { // Assuming 3 products
+        const productCheckbox = document.getElementById(`product-${i}`);
+        if (productCheckbox.checked) {
+            const noHijab = document.getElementById(`option-${i}-no-hijab`).checked;
+            const withHijab = document.getElementById(`option-${i}-with-hijab`).checked;
+            const noHijabQuantity = parseInt(document.getElementById(`quantity-${i}-no-hijab`).value);
+            const withHijabQuantity = parseInt(document.getElementById(`quantity-${i}-with-hijab`).value);
+
+            products.push({
+                productId: i,
+                noHijab: noHijab,
+                noHijabQuantity: noHijabQuantity,
+                withHijab: withHijab,
+                withHijabQuantity: withHijabQuantity,
+            });
+        }
+    }
+
+    // Delivery option
+    const deliveryOption = document.querySelector('input[name="delivery"]:checked').value;
+
+    // Total Price
+    const totalPrice = document.getElementById("totalPrice").innerText;
+
+    // Final collected data
+    const formData = {
+        name: name,
+        address: address,
+        phone: phone,
+        size: size,
+        products: products,
+        deliveryOption: deliveryOption,
+        totalPrice: totalPrice,
+    };
+
+    console.log(formData); // Displaying collected data in console for testing
+
+    // You can now use formData for any further actions like sending to a server
+}
+
 </script>
 
 </body>

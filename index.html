@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fashion Landing Page</title>
+    <title>Premium Burka</title>
     <style>
+        /* Basic Reset */
         * {
             margin: 0;
             padding: 0;
@@ -13,146 +14,150 @@
 
         body {
             font-family: Arial, sans-serif;
-            background-color: #fefefe;
+            background-color: #f5f5f5;
         }
 
+        /* Header Section */
         .header {
-            background-color: #f8c1c1;
-            padding: 20px;
+            background-color: #ffebee;
+            padding: 50px 20px;
+            text-align: center;
+            position: relative;
             display: flex;
-            justify-content: center;
             align-items: center;
-        }
-
-        .header-content {
-            display: flex;
             justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            width: 100%;
         }
 
         .header-text {
-            max-width: 500px;
-            color: #000;
+            flex: 1;
         }
 
         .header-text h1 {
             font-size: 2.5em;
-            margin-bottom: 10px;
-            font-weight: bold;
-        }
-
-        .header-text p {
-            font-size: 1.2em;
+            color: #333;
             margin-bottom: 20px;
         }
 
-        .order-button {
-            background-color: #e89a9a;
-            border: none;
-            color: #fff;
+        .header-text .btn {
             padding: 10px 20px;
-            font-size: 1em;
-            cursor: pointer;
+            background-color: #f06292;
+            color: #fff;
+            border: none;
             border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.2em;
         }
 
-        .header-image img {
-            max-width: 300px;
+        .header img {
+            width: 250px;
             height: auto;
             border-radius: 10px;
         }
 
-        .product-section {
-            padding: 30px;
+        /* Navbar */
+        .navbar {
+            background-color: #333;
+            overflow: hidden;
             display: flex;
             justify-content: center;
         }
 
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 20px;
-            max-width: 1200px;
-        }
-
-        .product-item {
-            text-align: center;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-
-        .product-item img {
-            width: 100%;
-            height: auto;
-            border-radius: 5px;
-            margin-bottom: 10px;
-        }
-
-        .product-item p {
-            font-size: 1em;
-            margin-bottom: 10px;
-        }
-
-        .order-button {
-            background-color: #4a3b3b;
+        .navbar a {
             color: #fff;
+            padding: 14px 20px;
+            text-decoration: none;
+            text-align: center;
+            font-size: 1em;
+        }
+
+        .navbar a:hover {
+            background-color: #575757;
+        }
+
+        /* Products Section */
+        .products {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .product-card {
+            background-color: #fff;
+            width: 180px;
             padding: 10px;
-            border: none;
-            cursor: pointer;
             border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        .product-card h3 {
+            font-size: 1em;
+            margin: 10px 0;
+            color: #333;
+        }
+
+        .product-card .price {
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .product-card .order-btn {
+            padding: 8px 12px;
+            background-color: #f06292;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
             font-size: 0.9em;
         }
     </style>
 </head>
 <body>
-    <header class="header">
-        <div class="header-content">
-            <div class="header-text">
-                <h1>স্বল্পমূল্যে প্রিমিয়াম বোরকা কিনুন</h1>
-                <p>দেশী-বিদেশী বোরকা বাজারের সবচেয়ে কম দামে</p>
-                <button class="order-button">অর্ডার করুন</button>
-            </div>
-            <div class="header-image">
-                <img src="441871073_122114791544308633_6659639184119792996_n_processed.jpg" alt="Model Image">
-            </div>
+
+    <!-- Header Section -->
+    <div class="header">
+        <div class="header-text">
+            <h1>স্বল্পমুল্যে প্রিমিয়াম বোরকা কিনুন</h1>
+            <button class="btn">অর্ডার করুন</button>
         </div>
-    </header>
-    <section class="product-section">
-        <div class="product-grid">
-            <!-- Product 1 -->
-            <div class="product-item">
-                <img src="product.jpg" alt="Product 1">
-                <p>হিজাব ছাড়া ৮৫০/= <br>হিজাব সহ ১১৫০/=</p>
-                <button class="order-button">অর্ডার করতে চাই</button>
-            </div>
-            <!-- Product 2 -->
-            <div class="product-item">
-                <img src="product.jpg" alt="Product 2">
-                <p>হিজাব ছাড়া ৯০০/= <br>হিজাব সহ ১২০০/=</p>
-                <button class="order-button">অর্ডার করতে চাই</button>
-            </div>
-            <!-- Product 3 -->
-            <div class="product-item">
-                <img src="product3.jpg" alt="Product 3">
-                <p>হিজাব ছাড়া ৯০০/= <br>হিজাব সহ ১২০০/=</p>
-                <button class="order-button">অর্ডার করতে চাই</button>
-            </div>
-            <!-- Product 4 -->
-            <div class="product-item">
-                <img src="product4.jpg" alt="Product 4">
-                <p>হিজাব ছাড়া ৯০০/= <br>হিজাব সহ ১২০০/=</p>
-                <button class="order-button">অর্ডার করতে চাই</button>
-            </div>
-            <!-- Product 5 -->
-            <div class="product-item">
-                <img src="product5.jpg" alt="Product 5">
-                <p>হিজাব ছাড়া ৯০০/= <br>হিজাব সহ ১২০০/=</p>
-                <button class="order-button">অর্ডার করতে চাই</button>
-            </div>
+        <img src="441871073_122114791544308633_6659639184119792996_n_processed.jpg" alt="Premium Burka Image">
+    </div>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <a href="#">Home</a>
+        <a href="#">কোনটাক্ট</a>
+    </div>
+
+    <!-- Products Section -->
+    <div class="products">
+        <!-- Product Card 1 -->
+        <div class="product-card">
+            <img src="441871073_122114791544308633_6659639184119792996_n_processed.jpg" alt="Burka Image 1">
+            <h3>বিউটি ফুল বোরকা</h3>
+            <p class="price">মূল্য: ৮৫০/=, বিশেষ মূল্য: ১১৫০/=</p>
+            <button class="order-btn">অর্ডার করতে চাই</button>
         </div>
-    </section>
+
+        <!-- Product Card 2 -->
+        <div class="product-card">
+            <img src="441871073_122114791544308633_6659639184119792996_n_processed.jpg" alt="Burka Image 2">
+            <h3>বিউটি ফুল বোরকা</h3>
+            <p class="price">মূল্য: ৮৫০/=, বিশেষ মূল্য: ১১৫০/=</p>
+            <button class="order-btn">অর্ডার করতে চাই</button>
+        </div>
+
+        <!-- Repeat more Product Cards as needed -->
+    </div>
+
 </body>
 </html>

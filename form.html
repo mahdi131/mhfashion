@@ -128,6 +128,17 @@
             font-size: 16px;
             color: #555;
         }
+        .delivery-section {
+            background-color: #e0f7e0;
+            border: 1px solid #00b050;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        .delivery-section label {
+            display: block; /* Ensure radio buttons stack */
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 <body>
@@ -235,25 +246,25 @@
                 </div>
             </div>
         </div>
-
-        <!-- Add delivery section -->
-        <div class="form-group">
-            <label>ডেলিভারি চার্জ:</label>
-            <div>
-                <label>
-                    <input type="radio" name="delivery" value="inside-dhaka" onchange="updateTotal()" checked> 
-                    ঢাকা শহরের ভিতরে - ৳ ৮০
-                </label>
-                <label>
-                    <input type="radio" name="delivery" value="outside-dhaka" onchange="updateTotal()"> 
-                    ঢাকা শহরের বাইরে - ৳ ১৫০
-                </label>
-            </div>
-        </div>
-
-        <div class="total-price" id="totalPrice">মোট মূল্য: ৳ ১০০</div>
-        <button class="order-button" onclick="placeOrder()">অর্ডার করুন</button>
     </div>
+
+    <!-- Delivery Section -->
+    <div class="delivery-section">
+        <h3>ডেলিভারি চার্জ</h3>
+        <div>
+            <label>
+                <input type="radio" name="delivery" value="inside-dhaka" onchange="updateTotal()" checked> 
+                ঢাকা শহরের ভিতরে - ৳ ১০০
+            </label>
+            <label>
+                <input type="radio" name="delivery" value="outside-dhaka" onchange="updateTotal()"> 
+                ঢাকা শহরের বাইরে - ৳ ২০০
+            </label>
+        </div>
+    </div>
+
+    <div class="total-price" id="totalPrice">মোট মূল্য: ৳ ১০০</div>
+    <button class="order-button" onclick="placeOrder()">অর্ডার করুন</button>
 </div>
 
 <div class="thank-you-container" id="thankYouContainer">

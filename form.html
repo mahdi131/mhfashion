@@ -63,6 +63,7 @@
         }
         .options {
             margin-left: 10px; /* Space between image and options */
+            display: none; /* Initially hide options */
         }
         .option-container {
             margin-top: 5px; /* Space between option containers */
@@ -154,7 +155,7 @@
 
     <div class="order-details">
         <h3>Your Products</h3>
-  <div class="product-item">
+        <div class="product-item">
             <input type="checkbox" id="product-1" onchange="toggleProductOptions(1)">
             <img src="441871073_122114791544308633_6659639184119792996_n_processed.jpg" alt="Borka 1" class="product-image">            
             <div class="options" id="options-1">
@@ -181,7 +182,6 @@
             </div>
         </div>
     </div>
-     
     
     <div class="total-price" id="totalPrice">মোট: ৳ 0</div>
     
@@ -205,6 +205,16 @@ function toggleProductOptions(productId) {
     
     // Show options only if product checkbox is checked
     optionsDiv.style.display = productCheckbox.checked ? 'block' : 'none';
+    
+    // If the product is checked, select the first option and set quantity to 1
+    if (productCheckbox.checked) {
+        document.getElementById('option-1-no-hijab').checked = true; // Selecting the first option
+        updateQuantity(productId, 'no-hijab', true); // Set quantity to 1 for the first option
+    } else {
+        // If unchecked, reset quantities to 0
+        document.getElementById('quantity-1-no-hijab').value = 0;
+        document.getElementById('quantity-1-with-hijab').value = 0;
+    }
 }
 
 // Update quantity function

@@ -254,11 +254,11 @@
         <div>
             <label>
                 <input type="radio" name="delivery" value="inside-dhaka" onchange="updateTotal()" checked> 
-                ঢাকা শহরের ভিতরে - ৳ ১০০
+                ঢাকা শহরের ভিতরে - ৳ ৮০
             </label>
             <label>
                 <input type="radio" name="delivery" value="outside-dhaka" onchange="updateTotal()"> 
-                ঢাকা শহরের বাইরে - ৳ ২০০
+                ঢাকা শহরের বাইরে - ৳ ১৫০
             </label>
         </div>
     </div>
@@ -296,7 +296,7 @@
 
     function updateTotal() {
         let total = 0;
-        const deliveryCharge = document.querySelector('input[name="delivery"]:checked').value === 'inside-dhaka' ? 100 : 200;
+        const deliveryCharge = document.querySelector('input[name="delivery"]:checked').value === 'inside-dhaka' ? 80 : 150;
         total += deliveryCharge;
 
         for (let i = 1; i <= 3; i++) { // Update to your number of products

@@ -5,26 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Order Form</title>
     <script type="module">
-        // Import the functions you need from the SDKs you need
+        // Firebase SDK এর প্রয়োজনীয় ফাংশন আমদানি করুন
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
-        import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
+        import { getDatabase, ref, push, set } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
 
-        // Your web app's Firebase configuration
+        // আপনার Firebase কনফিগারেশন
         const firebaseConfig = {
-            apiKey: "AIzaSyCZRsWIVwAF7K2Q8MEcX9xlXHv5ebT7a7U",
-            authDomain: "customer-56a6d.firebaseapp.com",
-            databaseURL: "https://customer-56a6d-default-rtdb.firebaseio.com",
-            projectId: "customer-56a6d",
-            storageBucket: "customer-56a6d.appspot.com",
-            messagingSenderId: "288879400798",
-            appId: "1:288879400798:web:767d1743de5f97165f61cf"
+            apiKey: "AIzaSyCea4pcw-YTiI-Z3ncWI5mZpxn8viWDw2I",
+            authDomain: "customerfinal-513b5.firebaseapp.com",
+            databaseURL: "https://customerfinal-513b5-default-rtdb.firebaseio.com",
+            projectId: "customerfinal-513b5",
+            storageBucket: "customerfinal-513b5.appspot.com",
+            messagingSenderId: "296983819720",
+            appId: "1:296983819720:web:83f2ae7084526c6e743cfd"
         };
 
-        // Initialize Firebase
+        // Firebase শুরু করুন
         const app = initializeApp(firebaseConfig);
         const database = getDatabase(app);
     </script>
-
     <style>
         body {
             margin-bottom: 50px;
@@ -42,8 +41,6 @@
         .title {
             text-align: center;
             color: #004d00;
-            padding: 15px;
-            border-bottom: 2px solid #00b050;
             font-size: 24px;
             margin-bottom: 20px;
         }
@@ -70,23 +67,13 @@
         }
         .product-item {
             margin-bottom: 15px;
-            display: flex;
-            align-items: center;
         }
         .product-name {
             font-size: 16px;
         }
-        .product-image {
-            width: 50px;
-            height: 50px;
-            margin-right: 10px;
-            vertical-align: middle;
-        }
         .options {
-            margin-left: 10px;
-        }
-        .option-container {
-            margin-top: 5px;
+            margin-top: 10px;
+            padding-left: 20px;
         }
         .quantity-container {
             display: flex;
@@ -120,18 +107,23 @@
             border-radius: 5px;
             cursor: pointer;
             text-align: center;
-            margin-top: 20px;
         }
         .order-button:hover {
             background-color: #009543;
         }
+        .delivery-options {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
         .thank-you-container {
-            display: none;
+            display: none; /* Hidden initially */
             text-align: center;
             background-color: #ccf0d1;
             padding: 30px;
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             margin: 20px auto;
             max-width: 600px;
         }
@@ -148,17 +140,6 @@
         .contact-info {
             font-size: 16px;
             color: #555;
-        }
-        .delivery-section {
-            background-color: #e0f7e0;
-            border: 1px solid #00b050;
-            padding: 15px;
-            border-radius: 5px;
-            margin-top: 20px;
-        }
-        .delivery-section label {
-            display: block;
-            margin-bottom: 10px;
         }
     </style>
 </head>
@@ -179,20 +160,19 @@
         <label for="phone">ফোন নাম্বার (optional)</label>
         <input type="text" id="phone" placeholder="ফোন নাম্বার লিখুন">
     </div>
-    <div class="form-group">
-        <label for="size">সাইজ (optional)</label>
-        <input type="text" id="size" placeholder="আপনার সাইজ লিখুন">
-    </div>
 
     <div class="order-details">
         <h3>Your Products</h3>
+
+        <!-- Product 1 -->
         <div class="product-item">
             <input type="checkbox" id="product-1" onchange="toggleProductOptions(1)">
-            <img src="441871073_122114791544308633_6659639184119792996_n_processed.jpg" alt="Borka 1" class="product-image">            
-            <div class="options" id="options-1" style="display: none;">
+            <label for="product-1" class="product-name">এডজাস্ট কটি বোরকা</label>
+            
+            <div class="options" id="options-1" style="display: none; margin-top: 10px;">
                 <div class="option-container">
                     <label>
-                        <input type="checkbox" id="option-1-no-hijab" value="1200" onchange="updateTotal()"> হিজাব ছাড়া - ৳ ১২০০
+                        <input type="checkbox" id="option-1-no-hijab" value="900" onchange="updateTotal()"> হিজাব ছাড়া - ৳ ৯০০
                     </label>
                     <div class="quantity-container">
                         <button class="quantity-btn" onclick="updateQuantity(1, 'no-hijab', false)">-</button>
@@ -202,7 +182,7 @@
                 </div>
                 <div class="option-container">
                     <label>
-                        <input type="checkbox" id="option-1-with-hijab" value="1300" onchange="updateTotal()"> হিজাব সহ - ৳ ১৩০০
+                        <input type="checkbox" id="option-1-with-hijab" value="1200" onchange="updateTotal()"> হিজাব সহ - ৳ ১২০০
                     </label>
                     <div class="quantity-container">
                         <button class="quantity-btn" onclick="updateQuantity(1, 'with-hijab', false)">-</button>
@@ -213,13 +193,15 @@
             </div>
         </div>
 
+        <!-- Product 2 -->
         <div class="product-item">
             <input type="checkbox" id="product-2" onchange="toggleProductOptions(2)">
-            <img src="441871073_122114791544308633_6659639184119792996_n_processed.jpg" alt="Borka 2" class="product-image">            
-            <div class="options" id="options-2" style="display: none;">
+            <label for="product-2" class="product-name">আলাদা কটি বোরকা</label>
+            
+            <div class="options" id="options-2" style="display: none; margin-top: 10px;">
                 <div class="option-container">
                     <label>
-                        <input type="checkbox" id="option-2-no-hijab" value="1200" onchange="updateTotal()"> হিজাব ছাড়া - ৳ ১২০০
+                        <input type="checkbox" id="option-2-no-hijab" value="900" onchange="updateTotal()"> হিজাব ছাড়া - ৳ ৯০০
                     </label>
                     <div class="quantity-container">
                         <button class="quantity-btn" onclick="updateQuantity(2, 'no-hijab', false)">-</button>
@@ -229,7 +211,7 @@
                 </div>
                 <div class="option-container">
                     <label>
-                        <input type="checkbox" id="option-2-with-hijab" value="1300" onchange="updateTotal()"> হিজাব সহ - ৳ ১৩০০
+                        <input type="checkbox" id="option-2-with-hijab" value="1200" onchange="updateTotal()"> হিজাব সহ - ৳ ১২০০
                     </label>
                     <div class="quantity-container">
                         <button class="quantity-btn" onclick="updateQuantity(2, 'with-hijab', false)">-</button>
@@ -240,136 +222,113 @@
             </div>
         </div>
 
-        <div class="total-price" id="totalPrice">মোট মূল্য: ৳ ০</div>
+        <div class="delivery-options">
+            <h3>ডেলিভারি অপশন</h3>
+            <label>
+                <input type="radio" name="delivery" value="150" onchange="updateTotal()"> ঢাকার বাহিরে (৳ ১৫০)
+            </label><br>
+            <label>
+                <input type="radio" name="delivery" value="80" onchange="updateTotal()"> ঢাকার ভিতরে (৳ ৮০)
+            </label><br>
+        </div>
+
+        <div class="total-price" id="totalPrice">মোট মূল্য: ৳ 0</div>
+        <button class="order-button" onclick="submitOrder()">অর্ডার করুন</button>
     </div>
 
-    <div class="delivery-section">
-        <h3>ডেলিভারি তথ্য</h3>
-        <div class="form-group">
-            <label for="deliveryDate">ডেলিভারি তারিখ</label>
-            <input type="date" id="deliveryDate">
-        </div>
-        <div class="form-group">
-            <label for="deliveryTime">ডেলিভারি সময়</label>
-            <input type="time" id="deliveryTime">
-        </div>
-        <div class="form-group">
-            <label for="deliveryMethod">ডেলিভারি পদ্ধতি</label>
-            <select id="deliveryMethod">
-                <option value="standard">স্ট্যান্ডার্ড ডেলিভারি</option>
-                <option value="express">এক্সপ্রেস ডেলিভারি</option>
-            </select>
-        </div>
-    </div>
-
-    <button class="order-button" id="submitOrder" onclick="submitOrder()">অর্ডার করুন</button>
-    
-    <div class="thank-you-container" id="thankYouMessage">
-        <div class="thank-you-title">ধন্যবাদ!</div>
-        <div class="thank-you-message">আপনার অর্ডার সফলভাবে জমা হয়েছে।</div>
-        <div class="contact-info">যোগাযোগের জন্য ফোন করুন: ০১২৩-৪৫৬৭৮৯</div>
+    <div class="thank-you-container" id="thankYouContainer">
+        <h2 class="thank-you-title">ধন্যবাদ!</h2>
+        <p class="thank-you-message">আপনার অর্ডার গ্রহণ করা হয়েছে।</p>
+        <p class="contact-info">আপনার নাম: <span id="thankYouName"></span></p>
+        <p class="contact-info">আপনার ফোন: <span id="thankYouPhone"></span></p>
+        <p class="contact-info">আপনার ঠিকানা: <span id="thankYouAddress"></span></p>
     </div>
 </div>
 
-<script>
-    let totalPrice = 0;
+<script type="module">
+    // Firebase SDK এর প্রয়োজনীয় ফাংশন আমদানি করুন
+    import { getDatabase, ref, push, set } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
+
+    // Firebase এর সাথে সংযোগ করুন
+    const database = getDatabase(app);
+
+    // মোট মূল্য আপডেট করুন
+    let total = 0;
 
     function toggleProductOptions(productId) {
         const options = document.getElementById(`options-${productId}`);
         options.style.display = options.style.display === 'none' ? 'block' : 'none';
-        updateTotal(); // Update total when options are toggled
     }
 
-    function updateQuantity(productId, optionType, isIncrement) {
-        const quantityInput = document.getElementById(`quantity-${productId}-${optionType}`);
-        let currentQuantity = parseInt(quantityInput.value) || 0;
-
-        if (isIncrement) {
-            currentQuantity++;
-        } else {
-            if (currentQuantity > 0) currentQuantity--;
+    function updateQuantity(productId, type, increment) {
+        const quantityInput = document.getElementById(`quantity-${productId}-${type}`);
+        let currentValue = parseInt(quantityInput.value);
+        if (increment) {
+            quantityInput.value = currentValue + 1;
+        } else if (currentValue > 0) {
+            quantityInput.value = currentValue - 1;
         }
-
-        quantityInput.value = currentQuantity;
         updateTotal();
     }
 
     function updateTotal() {
-        totalPrice = 0; // Reset total price
+        total = 0;
 
-        const productOptions = [
-            { id: 1, hijab: 'no-hijab', price: 1200 },
-            { id: 1, hijab: 'with-hijab', price: 1300 },
-            { id: 2, hijab: 'no-hijab', price: 1200 },
-            { id: 2, hijab: 'with-hijab', price: 1300 }
-        ];
+        // নির্বাচিত পণ্যগুলির থেকে মোট মূল্য গণনা করুন
+        for (let i = 1; i <= 2; i++) {
+            if (document.getElementById(`product-${i}`).checked) {
+                const noHijabOption = document.getElementById(`option-${i}-no-hijab`);
+                const withHijabOption = document.getElementById(`option-${i}-with-hijab`);
 
-        productOptions.forEach(option => {
-            const quantityInput = document.getElementById(`quantity-${option.id}-${option.hijab}`);
-            const quantity = parseInt(quantityInput.value) || 0;
-            totalPrice += option.price * quantity;
-        });
+                if (noHijabOption.checked) {
+                    total += parseInt(noHijabOption.value) * parseInt(document.getElementById(`quantity-${i}-no-hijab`).value);
+                }
+                if (withHijabOption.checked) {
+                    total += parseInt(withHijabOption.value) * parseInt(document.getElementById(`quantity-${i}-with-hijab`).value);
+                }
+            }
+        }
 
-        document.getElementById('totalPrice').textContent = `মোট মূল্য: ৳ ${totalPrice}`;
+        // ডেলিভারি চার্জ যোগ করুন
+        const deliveryOptions = document.getElementsByName('delivery');
+        for (let option of deliveryOptions) {
+            if (option.checked) {
+                total += parseInt(option.value);
+                break;
+            }
+        }
+
+        document.getElementById('totalPrice').innerText = `মোট মূল্য: ৳ ${total}`;
     }
 
     function submitOrder() {
         const name = document.getElementById('name').value;
         const address = document.getElementById('address').value;
         const phone = document.getElementById('phone').value;
-        const size = document.getElementById('size').value;
-        const deliveryDate = document.getElementById('deliveryDate').value;
-        const deliveryTime = document.getElementById('deliveryTime').value;
-        const deliveryMethod = document.getElementById('deliveryMethod').value;
 
-        // Prepare order details
-        const orderDetails = {
+        // অর্ডার Firebase এ সংরক্ষণ করুন
+        const orderData = {
             name: name,
             address: address,
             phone: phone,
-            size: size,
-            deliveryDate: deliveryDate,
-            deliveryTime: deliveryTime,
-            deliveryMethod: deliveryMethod,
-            totalPrice: totalPrice,
-            products: []
+            total: total
         };
 
-        // Gather selected products
-        for (let i = 1; i <= 2; i++) {
-            const hijabNo = document.getElementById(`option-${i}-no-hijab`);
-            const hijabYes = document.getElementById(`option-${i}-with-hijab`);
-            const quantityNo = parseInt(document.getElementById(`quantity-${i}-no-hijab`).value) || 0;
-            const quantityYes = parseInt(document.getElementById(`quantity-${i}-with-hijab`).value) || 0;
+        const newOrderRef = ref(database, 'orders');
+        const newOrder = push(newOrderRef);
+        set(newOrder, orderData).then(() => {
+            showThankYouMessage(name, phone, address);
+        }).catch((error) => {
+            alert('অর্ডার প্রেরণে সমস্যা ঘটেছে!');
+        });
+    }
 
-            if (quantityNo > 0) {
-                orderDetails.products.push({
-                    product: `Product ${i} (No Hijab)`,
-                    quantity: quantityNo,
-                    price: 1200 * quantityNo
-                });
-            }
-
-            if (quantityYes > 0) {
-                orderDetails.products.push({
-                    product: `Product ${i} (With Hijab)`,
-                    quantity: quantityYes,
-                    price: 1300 * quantityYes
-                });
-            }
-        }
-
-        // Save order to Firebase
-        const ordersRef = ref(getDatabase(), 'orders/' + Date.now());
-        set(ordersRef, orderDetails)
-            .then(() => {
-                console.log('Order saved successfully:', orderDetails);
-                document.getElementById('thankYouMessage').style.display = 'block';
-                document.getElementById('orderContainer').style.display = 'none';
-            })
-            .catch((error) => {
-                console.error('Error saving order:', error);
-            });
+    function showThankYouMessage(name, phone, address) {
+        document.getElementById('thankYouName').innerText = name;
+        document.getElementById('thankYouPhone').innerText = phone;
+        document.getElementById('thankYouAddress').innerText = address;
+        document.getElementById('orderContainer').style.display = 'none';
+        document.getElementById('thankYouContainer').style.display = 'block';
     }
 </script>
 

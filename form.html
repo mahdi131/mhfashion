@@ -10,7 +10,273 @@
             font-family: Arial, sans-serif;
             background-color: #e6f7e6;
         }
+        .order-container {<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Form</title>
+    <style>
+        body {
+            margin-bottom: 50px;
+            font-family: Arial, sans-serif;
+            background-color: #e6f7e6;
+        }
         .order-container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #ccf0d1;
+            padding: 20px;
+            border: 2px solid #00b050;
+            border-radius: 10px;
+        }
+        .title {
+            text-align: center;
+            color: #004d00;
+            padding: 15px;
+            border-bottom: 2px solid #00b050;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            font-size: 14px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-top: 5px;
+        }
+        .order-details {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .product-item {
+            margin-bottom: 15px;
+            display: flex; /* Flexbox to align items */
+            align-items: center; /* Center vertically */
+        }
+        .product-name {
+            font-size: 16px;
+        }
+        .product-image {
+            width: 50px;
+            height: 50px;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+        .options {
+            margin-left: 10px; /* Space between image and options */
+        }
+        .option-container {
+            margin-top: 5px; /* Space between option containers */
+        }
+        .quantity-container {
+            display: flex;
+            align-items: center;
+            margin-left: 10px;
+        }
+        .quantity-btn {
+            font-size: 16px;
+            padding: 5px 10px;
+            cursor: pointer;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            background-color: #f2f2f2;
+            margin: 0 5px;
+        }
+        .total-price {
+            font-size: 18px;
+            font-weight: bold;
+            color: #222;
+            text-align: right;
+            margin-top: 10px;
+        }
+        .order-button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            font-size: 18px;
+            color: #fff;
+            background-color: #00b050;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .order-button:hover {
+            background-color: #009543;
+        }
+        .thank-you-container {
+            display: none;
+            text-align: center;
+            background-color: #ccf0d1;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin: 20px auto;
+            max-width: 600px;
+        }
+        .thank-you-title {
+            font-size: 24px;
+            color: #004d00;
+            margin-bottom: 20px;
+        }
+        .thank-you-message {
+            font-size: 18px;
+            color: #222;
+            margin-bottom: 20px;
+        }
+        .contact-info {
+            font-size: 16px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+
+<div class="order-container" id="orderContainer">
+    <h2 class="title">অর্ডার করতে নিচে তথ্যগুলো দিন</h2>
+    
+    <div class="form-group">
+        <label for="name">আপনার নাম (optional)</label>
+        <input type="text" id="name" placeholder="নাম লিখুন">
+    </div>
+    <div class="form-group">
+        <label for="address">সম্পূর্ণ ঠিকানা (optional)</label>
+        <input type="text" id="address" placeholder="House number and street name">
+    </div>
+    <div class="form-group">
+        <label for="phone">ফোন নাম্বার (optional)</label>
+        <input type="text" id="phone" placeholder="ফোন নাম্বার লিখুন">
+    </div>
+    <div class="form-group">
+        <label for="size">সাইজ (optional)</label>
+        <input type="text" id="size" placeholder="আপনার সাইজ লিখুন">
+    </div>
+
+    <div class="order-details">
+        <h3>Your Products</h3>
+        <div class="product-item">
+            <input type="checkbox" id="product-1" onchange="toggleProductOptions(1)">
+            <img src="441871073_122114791544308633_6659639184119792996_n_processed.jpg" alt="Borka 1" class="product-image">            
+            <div class="options" id="options-1" style="display: none;">
+                <div class="option-container">
+                    <label>
+                        <input type="checkbox" id="option-1-no-hijab" value="1200" onchange="handleOptionChange(1, 'no-hijab', this)"> হিজাব ছাড়া - ৳ ১২০০
+                    </label>
+                    <div class="quantity-container">
+                        <button class="quantity-btn" onclick="updateQuantity(1, 'no-hijab', false)">-</button>
+                        <input type="number" id="quantity-1-no-hijab" value="0" style="width: 50px; text-align: center;" readonly>
+                        <button class="quantity-btn" onclick="updateQuantity(1, 'no-hijab', true)">+</button>
+                    </div>
+                </div>
+                <div class="option-container">
+                    <label>
+                        <input type="checkbox" id="option-1-with-hijab" value="1300" onchange="handleOptionChange(1, 'with-hijab', this)"> হিজাব সহ - ৳ ১৩০০
+                    </label>
+                    <div class="quantity-container">
+                        <button class="quantity-btn" onclick="updateQuantity(1, 'with-hijab', false)">-</button>
+                        <input type="number" id="quantity-1-with-hijab" value="0" style="width: 50px; text-align: center;" readonly>
+                        <button class="quantity-btn" onclick="updateQuantity(1, 'with-hijab', true)">+</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+     
+    <div class="total-price" id="totalPrice">মোট: ৳ 0</div>
+    
+    <button class="order-button" onclick="confirmOrder()">অর্ডার করুন</button>
+
+</div>
+
+<!-- Thank You Container -->
+<div class="thank-you-container" id="thankYouContainer">
+    <h1 class="thank-you-title">ধন্যবাদ!</h1>
+    <p class="thank-you-message">আপনার অর্ডারটি কনফার্ম করা হয়েছে।</p>
+    <p class="thank-you-message">আপনার সাথে খুব শীগ্রই ফোনে যোগাযোগ করা হবে।</p>
+    <p class="contact-info">যেকোন সমস্যায় যোগাযোগ করুন: <strong>01568077460</strong></p>
+    <a href="index.html" class="order-button">মেইন পেইজে ফিরে যান</a>
+</div>
+
+<script>
+function toggleProductOptions(productId) {
+    const optionsDiv = document.getElementById(`options-${productId}`);
+    const productCheckbox = document.getElementById(`product-${productId}`);
+    
+    // Show options only if product checkbox is checked
+    optionsDiv.style.display = productCheckbox.checked ? 'block' : 'none';
+}
+
+function handleOptionChange(productId, option, checkbox) {
+    const quantityInput = document.getElementById(`quantity-${productId}-${option}`);
+    if (checkbox.checked) {
+        quantityInput.value = 1; // Set quantity to 1 if option is checked
+    } else {
+        quantityInput.value = 0; // Set quantity to 0 if option is unchecked
+    }
+    updateTotal();
+}
+
+function updateQuantity(productId, option, increase) {
+    const quantityInput = document.getElementById(`quantity-${productId}-${option}`);
+    let currentValue = parseInt(quantityInput.value);
+    if (increase) {
+        currentValue++;
+    } else {
+        if (currentValue > 0) currentValue--;
+    }
+    quantityInput.value = currentValue;
+
+    // Check the corresponding option checkbox if quantity > 0
+    const checkbox = document.getElementById(`option-${productId}-${option}`);
+    if (currentValue > 0) {
+        checkbox.checked = true;
+    } else {
+        checkbox.checked = false;
+    }
+
+    updateTotal();
+}
+
+function updateTotal() {
+    let total = 0;
+
+    // Calculate total price based on selected options and quantities
+    const productCheckbox = document.getElementById('product-1');
+    if (productCheckbox.checked) {
+        const noHijabCheckbox = document.getElementById('option-1-no-hijab');
+        const withHijabCheckbox = document.getElementById('option-1-with-hijab');
+
+        if (noHijabCheckbox.checked) {
+            total += 1200 * parseInt(document.getElementById('quantity-1-no-hijab').value);
+        }
+        if (withHijabCheckbox.checked) {
+            total += 1300 * parseInt(document.getElementById('quantity-1-with-hijab').value);
+        }
+    }
+
+    document.getElementById('totalPrice').innerText = `মোট: ৳ ${total}`;
+}
+
+function confirmOrder() {
+    document.getElementById('orderContainer').style.display = 'none';
+    document.getElementById('thankYouContainer').style.display = 'block';
+}
+</script>
+</body>
+</html>
+
             max-width: 800px;
             margin: 20px auto;
             background-color: #ccf0d1;

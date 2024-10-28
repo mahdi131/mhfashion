@@ -7,7 +7,6 @@
     <style>
         body {
             margin-bottom: 50px;
-            /* Hide scrollbar for Chrome, Safari, Opera, IE, Edge, and Firefox */
             -webkit-scrollbar {
                 display: none;
             }
@@ -218,136 +217,82 @@
                 <input type="radio" name="delivery" value="80" onchange="updateTotal()"> ঢাকার ভিতরে- ৳৮০
             </label><br>
             <label>
-                <input type="radio" name="delivery" value="150" onchange="updateTotal()"> ঢাকার বাহিরে- ৳১৫০
-            </label><br>
+                <input type="radio" name="delivery" value="150" onchange="updateTotal()"> ঢাকার বাইরে- ৳১৫০
+            </label>
         </div>
 
-        <div class="total-price" id="totalPrice">মোট মূল্য: ৳ ০</div>
+        <div class="total-price" id="totalPrice">মোট: ৳ ০</div>
     </div>
 
-    <button class="order-button" onclick="submitOrder()">অর্ডার দিন</button>
-</div>
+    <button class="order-button" onclick="submitOrder()">অর্ডার করুন</button>
 
-<div class="thank-you-container" id="thankYouContainer">
-    <h2 class="thank-you-title">ধন্যবাদ!</h2>
-    <p class="thank-you-message">আপনার অর্ডার সফলভাবে গ্রহণ করা হয়েছে।</p>
-    <p class="contact-info">যেকোনো তথ্যের জন্য আমাদের সাথে যোগাযোগ করুন।</p>
+    <div class="thank-you-container" id="thankYouContainer">
+        <h2 class="thank-you-title">ধন্যবাদ!</h2>
+        <p class="thank-you-message">আপনার অর্ডার সফলভাবে গ্রহণ করা হয়েছে।</p>
+        <p class="contact-info">আপনার প্রশ্ন থাকলে, আমাদের সাথে যোগাযোগ করুন।</p>
+    </div>
 </div>
 
 <script>
-    let total = 0;
-
     function toggleProductOptions(productId) {
         const options = document.getElementById(`options-${productId}`);
-        options.style.display = options.style.display === "none" ? "block" : "none";
-        // Reset quantities and total when toggling options
-        resetQuantities(productId);
+        options.style.display = options.style.display === 'none' ? 'block' : 'none';
         updateTotal();
     }
 
-    function updateQuantity(productId, option, increment) {
+    function updateQuantity(productId, option, isIncreasing) {
         const quantityInput = document.getElementById(`quantity-${productId}-${option}`);
-        let quantity = parseInt(quantityInput.value);
-        quantity = increment ? quantity + 1 : Math.max(0, quantity - 1);
-        quantityInput.value = quantity;
+        let currentQuantity = parseInt(quantityInput.value);
+        if (isIncreasing) {
+            currentQuantity++;
+        } else if (currentQuantity > 0) {
+            currentQuantity--;
+        }
+        quantityInput.value = currentQuantity;
         updateTotal();
     }
 
     function updateTotal() {
-        total = 0;
-        const checkboxes = document.querySelectorAll('.product-item input[type="checkbox"]:checked');
-        
-        checkboxes.forEach(checkbox => {
-            const productId = checkbox.id.split('-')[1];
-            const options = document.getElementById(`options-${productId}`);
+        let total = 0;
 
-            // Calculate total for selected options
-            const hijabOptionNo = document.getElementById(`option-${productId}-no-hijab`);
-            const hijabOptionYes = document.getElementById(`option-${productId}-with-hijab`);
-            
-            if (hijabOptionNo.checked) {
-                const quantity = parseInt(document.getElementById(`quantity-${productId}-no-hijab`).value);
-                total += parseInt(hijabOptionNo.value) * quantity;
+        // Calculate total for each product
+        for (let i = 1; i <= 2; i++) {
+            const noHijabCheckbox = document.getElementById(`option-${i}-no-hijab`);
+            const withHijabCheckbox = document.getElementById(`option-${i}-with-hijab`);
+            const noHijabQuantity = parseInt(document.getElementById(`quantity-${i}-no-hijab`).value) || 0;
+            const withHijabQuantity = parseInt(document.getElementById(`quantity-${i}-with-hijab`).value) || 0;
+
+            if (noHijabCheckbox.checked) {
+                total += noHijabQuantity * parseInt(noHijabCheckbox.value);
             }
-            if (hijabOptionYes.checked) {
-                const quantity = parseInt(document.getElementById(`quantity-${productId}-with-hijab`).value);
-                total += parseInt(hijabOptionYes.value) * quantity;
+            if (withHijabCheckbox.checked) {
+                total += withHijabQuantity * parseInt(withHijabCheckbox.value);
             }
-        });
+        }
 
-        // Add delivery charge
-        const deliveryOptions = document.querySelectorAll('input[name="delivery"]:checked');
-        deliveryOptions.forEach(option => {
-            total += parseInt(option.value);
-        });
+        // Calculate delivery charge
+        const deliveryOptions = document.getElementsByName('delivery');
+        for (const option of deliveryOptions) {
+            if (option.checked) {
+                total += parseInt(option.value);
+            }
+        }
 
-        document.getElementById("totalPrice").textContent = `মোট মূল্য: ৳ ${total}`;
-    }
-
-    function resetQuantities(productId) {
-        const quantityInputs = document.querySelectorAll(`#options-${productId} input[type="number"]`);
-        quantityInputs.forEach(input => {
-            input.value = 0;
-        });
+        document.getElementById('totalPrice').innerText = `মোট: ৳ ${total}`;
     }
 
     function submitOrder() {
-        // Hide order container and show thank you message
-        document.getElementById("orderContainer").style.display = "none";
-        document.getElementById("thankYouContainer").style.display = "block";
+        const name = document.getElementById('name').value;
+        const address = document.getElementById('address').value;
+        const phone = document.getElementById('phone').value;
+
+        // Here you can handle the order submission (e.g., save to database or send email)
+        console.log('Order Submitted:', { name, address, phone });
+
+        // Hide order form and show thank you message
+        document.getElementById('orderContainer').style.display = 'none';
+        document.getElementById('thankYouContainer').style.display = 'block';
     }
-
-    // collect data using java script //
-
-    
-    function collectFormData() {
-    const name = document.getElementById("name").value;
-    const address = document.getElementById("address").value;
-    const phone = document.getElementById("phone").value;
-    const size = document.getElementById("size").value;
-
-    // Product selection and quantities
-    const products = [];
-    for (let i = 1; i <= 3; i++) { // Assuming 3 products
-        const productCheckbox = document.getElementById(`product-${i}`);
-        if (productCheckbox.checked) {
-            const noHijab = document.getElementById(`option-${i}-no-hijab`).checked;
-            const withHijab = document.getElementById(`option-${i}-with-hijab`).checked;
-            const noHijabQuantity = parseInt(document.getElementById(`quantity-${i}-no-hijab`).value);
-            const withHijabQuantity = parseInt(document.getElementById(`quantity-${i}-with-hijab`).value);
-
-            products.push({
-                productId: i,
-                noHijab: noHijab,
-                noHijabQuantity: noHijabQuantity,
-                withHijab: withHijab,
-                withHijabQuantity: withHijabQuantity,
-            });
-        }
-    }
-
-    // Delivery option
-    const deliveryOption = document.querySelector('input[name="delivery"]:checked').value;
-
-    // Total Price
-    const totalPrice = document.getElementById("totalPrice").innerText;
-
-    // Final collected data
-    const formData = {
-        name: name,
-        address: address,
-        phone: phone,
-        size: size,
-        products: products,
-        deliveryOption: deliveryOption,
-        totalPrice: totalPrice,
-    };
-
-    console.log(formData); // Displaying collected data in console for testing
-
-    // You can now use formData for any further actions like sending to a server
-}
-
 </script>
 
 </body>

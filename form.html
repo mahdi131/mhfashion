@@ -63,7 +63,6 @@
         }
         .options {
             margin-left: 10px; /* Space between image and options */
-            display: none; /* Initially hide options */
         }
         .option-container {
             margin-top: 5px; /* Space between option containers */
@@ -158,10 +157,10 @@
         <div class="product-item">
             <input type="checkbox" id="product-1" onchange="toggleProductOptions(1)">
             <img src="441871073_122114791544308633_6659639184119792996_n_processed.jpg" alt="Borka 1" class="product-image">            
-            <div class="options" id="options-1">
+            <div class="options" id="options-1" style="display: none;">
                 <div class="option-container">
                     <label>
-                        <input type="checkbox" id="option-1-no-hijab" value="1200" onchange="updateTotal()"> হিজাব ছাড়া - ৳ ১২০০
+                        <input type="checkbox" id="option-1-no-hijab" value="1200" onchange="handleOptionChange(1, 'no-hijab', this)"> হিজাব ছাড়া - ৳ ১২০০
                     </label>
                     <div class="quantity-container">
                         <button class="quantity-btn" onclick="updateQuantity(1, 'no-hijab', false)">-</button>
@@ -171,7 +170,7 @@
                 </div>
                 <div class="option-container">
                     <label>
-                        <input type="checkbox" id="option-1-with-hijab" value="1300" onchange="updateTotal()"> হিজাব সহ - ৳ ১৩০০
+                        <input type="checkbox" id="option-1-with-hijab" value="1300" onchange="handleOptionChange(1, 'with-hijab', this)"> হিজাব সহ - ৳ ১৩০০
                     </label>
                     <div class="quantity-container">
                         <button class="quantity-btn" onclick="updateQuantity(1, 'with-hijab', false)">-</button>
@@ -182,7 +181,7 @@
             </div>
         </div>
     </div>
-    
+     
     <div class="total-price" id="totalPrice">মোট: ৳ 0</div>
     
     <button class="order-button" onclick="confirmOrder()">অর্ডার করুন</button>
@@ -205,46 +204,61 @@ function toggleProductOptions(productId) {
     
     // Show options only if product checkbox is checked
     optionsDiv.style.display = productCheckbox.checked ? 'block' : 'none';
-    
-    // If the product is checked, select the first option and set quantity to 1
+
+    // Automatically check the first option if product is checked
     if (productCheckbox.checked) {
-        document.getElementById('option-1-no-hijab').checked = true; // Selecting the first option
-        updateQuantity(productId, 'no-hijab', true); // Set quantity to 1 for the first option
-    } else {
-        // If unchecked, reset quantities to 0
-        document.getElementById('quantity-1-no-hijab').value = 0;
-        document.getElementById('quantity-1-with-hijab').value = 0;
+        const firstOption = document.getElementById(`option-${productId}-no-hijab`);
+        firstOption.checked = true; // Automatically check the first option
+        document.getElementById(`quantity-${productId}-no-hijab`).value = 1; // Set quantity to 1
+        updateTotal();
     }
 }
 
-// Update quantity function
-function updateQuantity(productId, option, increase) {
+function handleOptionChange(productId, option, checkbox) {
     const quantityInput = document.getElementById(`quantity-${productId}-${option}`);
-    let currentValue = parseInt(quantityInput.value);
-    if (increase) {
-        quantityInput.value = currentValue + 1;
-    } else if (currentValue > 0) {
-        quantityInput.value = currentValue - 1;
+    if (checkbox.checked) {
+        quantityInput.value = 1; // Set quantity to 1 if option is checked
+    } else {
+        quantityInput.value = 0; // Set quantity to 0 if option is unchecked
     }
     updateTotal();
 }
 
-// Update total price function
+function updateQuantity(productId, option, increase) {
+    const quantityInput = document.getElementById(`quantity-${productId}-${option}`);
+    let currentValue = parseInt(quantityInput.value);
+    if (increase) {
+        currentValue++;
+    } else {
+        if (currentValue > 0) currentValue--;
+    }
+    quantityInput.value = currentValue;
+
+    // Check the corresponding option checkbox if quantity > 0
+    const checkbox = document.getElementById(`option-${productId}-${option}`);
+    if (currentValue > 0) {
+        checkbox.checked = true;
+    } else {
+        checkbox.checked = false;
+    }
+
+    updateTotal();
+}
+
 function updateTotal() {
     let total = 0;
 
-    // Calculate total for selected products
-    for (let i = 1; i <= 1; i++) { // Only one product in this case
-        const noHijabCheckbox = document.getElementById(`option-${i}-no-hijab`);
-        const withHijabCheckbox = document.getElementById(`option-${i}-with-hijab`);
-        const noHijabQuantity = parseInt(document.getElementById(`quantity-${i}-no-hijab`).value) || 0;
-        const withHijabQuantity = parseInt(document.getElementById(`quantity-${i}-with-hijab`).value) || 0;
+    // Calculate total price based on selected options and quantities
+    const productCheckbox = document.getElementById('product-1');
+    if (productCheckbox.checked) {
+        const noHijabCheckbox = document.getElementById('option-1-no-hijab');
+        const withHijabCheckbox = document.getElementById('option-1-with-hijab');
 
         if (noHijabCheckbox.checked) {
-            total += noHijabQuantity * parseInt(noHijabCheckbox.value);
+            total += 1200 * parseInt(document.getElementById('quantity-1-no-hijab').value);
         }
         if (withHijabCheckbox.checked) {
-            total += withHijabQuantity * parseInt(withHijabCheckbox.value);
+            total += 1300 * parseInt(document.getElementById('quantity-1-with-hijab').value);
         }
     }
 
@@ -252,11 +266,9 @@ function updateTotal() {
 }
 
 function confirmOrder() {
-    // Hide the order form and show the thank you message
     document.getElementById('orderContainer').style.display = 'none';
     document.getElementById('thankYouContainer').style.display = 'block';
 }
 </script>
-
 </body>
 </html>

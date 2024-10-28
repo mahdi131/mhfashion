@@ -38,7 +38,7 @@
             font-size: 14px;
             border: 1px solid #ddd;
             border-radius: 5px;
-            margin-top: 5px;
+            margin: 5px 0; /* Space only below the input */
         }
         .order-details {
             background-color: #f9f9f9;
@@ -154,6 +154,8 @@
 
     <div class="order-details">
         <h3>Your Products</h3>
+
+        <!-- Product 1 -->
         <div class="product-item">
             <input type="checkbox" id="product-1" onchange="toggleProductOptions(1)">
             <img src="441871073_122114791544308633_6659639184119792996_n_processed.jpg" alt="Borka 1" class="product-image">            
@@ -180,87 +182,274 @@
                 </div>
             </div>
         </div>
+
+        <!-- Product 2 -->
+        <div class="product-item">
+            <input type="checkbox" id="product-2" onchange="toggleProductOptions(2)">
+            <img src="441871073_122114791544308633_6659639184119792996_n_processed.jpg" alt="Borka 2" class="product-image">            
+            <div class="options" id="options-2" style="display: none;">
+                <div class="option-container">
+                    <label>
+                        <input type="checkbox" id="option-2-no-hijab" value="1400" onchange="handleOptionChange(2, 'no-hijab', this)"> হিজাব ছাড়া - ৳ ১৪০০
+                    </label>
+                    <div class="quantity-container">
+                        <button class="quantity-btn" onclick="updateQuantity(2, 'no-hijab', false)">-</button>
+                        <input type="number" id="quantity-2-no-hijab" value="0" style="width: 50px; text-align: center;" readonly>
+                        <button class="quantity-btn" onclick="updateQuantity(2, 'no-hijab', true)">+</button>
+                    </div>
+                </div>
+                <div class="option-container">
+                    <label>
+                        <input type="checkbox" id="option-2-with-hijab" value="1500" onchange="handleOptionChange(2, 'with-hijab', this)"> হিজাব সহ - ৳ ১৫০০
+                    </label>
+                    <div class="quantity-container">
+                        <button class="quantity-btn" onclick="updateQuantity(2, 'with-hijab', false)">-</button>
+                        <input type="number" id="quantity-2-with-hijab" value="0" style="width: 50px; text-align: center;" readonly>
+                        <button class="quantity-btn" onclick="updateQuantity(2, 'with-hijab', true)">+</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product 3 -->
+        <div class="product-item">
+            <input type="checkbox" id="product-3" onchange="toggleProductOptions(3)">
+            <img src="441871073_122114791544308633_6659639184119792996_n_processed.jpg" alt="Borka 3" class="product-image">            
+            <div class="options" id="options-3" style="display: none;">
+                <div class="option-container">
+                    <label>
+                        <input type="checkbox" id="option-3-no-hijab" value="1600" onchange="handleOptionChange(3, 'no-hijab', this)"> হিজাব ছাড়া - ৳ ১৬০০
+                    </label>
+                    <div class="quantity-container">
+                        <button class="quantity-btn" onclick="updateQuantity(3, 'no-hijab', false)">-</button>
+                        <input type="number" id="quantity-3-no-hijab" value="0" style="width: 50px; text-align: center;" readonly>
+                        <button class="quantity-btn" onclick="updateQuantity(3, 'no-hijab', true)">+</button>
+                    </div>
+                </div>
+                <div class="option-container">
+                    <label>
+                        <input type="checkbox" id="option-3-with-hijab" value="1700" onchange="handleOptionChange(3, 'with-hijab', this)"> হিজাব সহ - ৳ ১৭০০
+                    </label>
+                    <div class="quantity-container">
+                        <button class="quantity-btn" onclick="updateQuantity(3, 'with-hijab', false)">-</button>
+                        <input type="number" id="quantity-3-with-hijab" value="0" style="width: 50px; text-align: center;" readonly>
+                        <button class="quantity-btn" onclick="updateQuantity(3, 'with-hijab', true)">+</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product 4 -->
+        <div class="product-item">
+            <input type="checkbox" id="product-4" onchange="toggleProductOptions(4)">
+            <img src="441871073_122114791544308633_6659639184119792996_n_processed.jpg" alt="Borka 4" class="product-image">            
+            <div class="options" id="options-4" style="display: none;">
+                <div class="option-container">
+                    <label>
+                        <input type="checkbox" id="option-4-no-hijab" value="1800" onchange="handleOptionChange(4, 'no-hijab', this)"> হিজাব ছাড়া - ৳ ১৮০০
+                    </label>
+                    <div class="quantity-container">
+                        <button class="quantity-btn" onclick="updateQuantity(4, 'no-hijab', false)">-</button>
+                        <input type="number" id="quantity-4-no-hijab" value="0" style="width: 50px; text-align: center;" readonly>
+                        <button class="quantity-btn" onclick="updateQuantity(4, 'no-hijab', true)">+</button>
+                    </div>
+                </div>
+                <div class="option-container">
+                    <label>
+                        <input type="checkbox" id="option-4-with-hijab" value="1900" onchange="handleOptionChange(4, 'with-hijab', this)"> হিজাব সহ - ৳ ১৯০০
+                    </label>
+                    <div class="quantity-container">
+                        <button class="quantity-btn" onclick="updateQuantity(4, 'with-hijab', false)">-</button>
+                        <input type="number" id="quantity-4-with-hijab" value="0" style="width: 50px; text-align: center;" readonly>
+                        <button class="quantity-btn" onclick="updateQuantity(4, 'with-hijab', true)">+</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product 5 -->
+        <div class="product-item">
+            <input type="checkbox" id="product-5" onchange="toggleProductOptions(5)">
+            <img src="441871073_122114791544308633_6659639184119792996_n_processed.jpg" alt="Borka 5" class="product-image">            
+            <div class="options" id="options-5" style="display: none;">
+                <div class="option-container">
+                    <label>
+                        <input type="checkbox" id="option-5-no-hijab" value="2000" onchange="handleOptionChange(5, 'no-hijab', this)"> হিজাব ছাড়া - ৳ ২০০০
+                    </label>
+                    <div class="quantity-container">
+                        <button class="quantity-btn" onclick="updateQuantity(5, 'no-hijab', false)">-</button>
+                        <input type="number" id="quantity-5-no-hijab" value="0" style="width: 50px; text-align: center;" readonly>
+                        <button class="quantity-btn" onclick="updateQuantity(5, 'no-hijab', true)">+</button>
+                    </div>
+                </div>
+                <div class="option-container">
+                    <label>
+                        <input type="checkbox" id="option-5-with-hijab" value="2100" onchange="handleOptionChange(5, 'with-hijab', this)"> হিজাব সহ - ৳ ২১০০
+                    </label>
+                    <div class="quantity-container">
+                        <button class="quantity-btn" onclick="updateQuantity(5, 'with-hijab', false)">-</button>
+                        <input type="number" id="quantity-5-with-hijab" value="0" style="width: 50px; text-align: center;" readonly>
+                        <button class="quantity-btn" onclick="updateQuantity(5, 'with-hijab', true)">+</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product 6 -->
+        <div class="product-item">
+            <input type="checkbox" id="product-6" onchange="toggleProductOptions(6)">
+            <img src="441871073_122114791544308633_6659639184119792996_n_processed.jpg" alt="Borka 6" class="product-image">            
+            <div class="options" id="options-6" style="display: none;">
+                <div class="option-container">
+                    <label>
+                        <input type="checkbox" id="option-6-no-hijab" value="2200" onchange="handleOptionChange(6, 'no-hijab', this)"> হিজাব ছাড়া - ৳ ২২০০
+                    </label>
+                    <div class="quantity-container">
+                        <button class="quantity-btn" onclick="updateQuantity(6, 'no-hijab', false)">-</button>
+                        <input type="number" id="quantity-6-no-hijab" value="0" style="width: 50px; text-align: center;" readonly>
+                        <button class="quantity-btn" onclick="updateQuantity(6, 'no-hijab', true)">+</button>
+                    </div>
+                </div>
+                <div class="option-container">
+                    <label>
+                        <input type="checkbox" id="option-6-with-hijab" value="2300" onchange="handleOptionChange(6, 'with-hijab', this)"> হিজাব সহ - ৳ ২৩০০
+                    </label>
+                    <div class="quantity-container">
+                        <button class="quantity-btn" onclick="updateQuantity(6, 'with-hijab', false)">-</button>
+                        <input type="number" id="quantity-6-with-hijab" value="0" style="width: 50px; text-align: center;" readonly>
+                        <button class="quantity-btn" onclick="updateQuantity(6, 'with-hijab', true)">+</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product 7 -->
+        <div class="product-item">
+            <input type="checkbox" id="product-7" onchange="toggleProductOptions(7)">
+            <img src="441871073_122114791544308633_6659639184119792996_n_processed.jpg" alt="Borka 7" class="product-image">            
+            <div class="options" id="options-7" style="display: none;">
+                <div class="option-container">
+                    <label>
+                        <input type="checkbox" id="option-7-no-hijab" value="2400" onchange="handleOptionChange(7, 'no-hijab', this)"> হিজাব ছাড়া - ৳ ২৪০০
+                    </label>
+                    <div class="quantity-container">
+                        <button class="quantity-btn" onclick="updateQuantity(7, 'no-hijab', false)">-</button>
+                        <input type="number" id="quantity-7-no-hijab" value="0" style="width: 50px; text-align: center;" readonly>
+                        <button class="quantity-btn" onclick="updateQuantity(7, 'no-hijab', true)">+</button>
+                    </div>
+                </div>
+                <div class="option-container">
+                    <label>
+                        <input type="checkbox" id="option-7-with-hijab" value="2500" onchange="handleOptionChange(7, 'with-hijab', this)"> হিজাব সহ - ৳ ২৫০০
+                    </label>
+                    <div class="quantity-container">
+                        <button class="quantity-btn" onclick="updateQuantity(7, 'with-hijab', false)">-</button>
+                        <input type="number" id="quantity-7-with-hijab" value="0" style="width: 50px; text-align: center;" readonly>
+                        <button class="quantity-btn" onclick="updateQuantity(7, 'with-hijab', true)">+</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product 8 -->
+        <div class="product-item">
+            <input type="checkbox" id="product-8" onchange="toggleProductOptions(8)">
+            <img src="441871073_122114791544308633_6659639184119792996_n_processed.jpg" alt="Borka 8" class="product-image">            
+            <div class="options" id="options-8" style="display: none;">
+                <div class="option-container">
+                    <label>
+                        <input type="checkbox" id="option-8-no-hijab" value="2600" onchange="handleOptionChange(8, 'no-hijab', this)"> হিজাব ছাড়া - ৳ ২৬০০
+                    </label>
+                    <div class="quantity-container">
+                        <button class="quantity-btn" onclick="updateQuantity(8, 'no-hijab', false)">-</button>
+                        <input type="number" id="quantity-8-no-hijab" value="0" style="width: 50px; text-align: center;" readonly>
+                        <button class="quantity-btn" onclick="updateQuantity(8, 'no-hijab', true)">+</button>
+                    </div>
+                </div>
+                <div class="option-container">
+                    <label>
+                        <input type="checkbox" id="option-8-with-hijab" value="2700" onchange="handleOptionChange(8, 'with-hijab', this)"> হিজাব সহ - ৳ ২৭০০
+                    </label>
+                    <div class="quantity-container">
+                        <button class="quantity-btn" onclick="updateQuantity(8, 'with-hijab', false)">-</button>
+                        <input type="number" id="quantity-8-with-hijab" value="0" style="width: 50px; text-align: center;" readonly>
+                        <button class="quantity-btn" onclick="updateQuantity(8, 'with-hijab', true)">+</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="total-price" id="totalPrice">মোট মূল্য: ৳ ০</div>
     </div>
-     
-    <div class="total-price" id="totalPrice">মোট: ৳ 0</div>
-    
-    <button class="order-button" onclick="confirmOrder()">অর্ডার করুন</button>
 
-</div>
+    <button class="order-button" onclick="submitOrder()">অর্ডার করুন</button>
 
-<!-- Thank You Container -->
-<div class="thank-you-container" id="thankYouContainer">
-    <h1 class="thank-you-title">ধন্যবাদ!</h1>
-    <p class="thank-you-message">আপনার অর্ডারটি কনফার্ম করা হয়েছে।</p>
-    <p class="thank-you-message">আপনার সাথে খুব শীগ্রই ফোনে যোগাযোগ করা হবে।</p>
-    <p class="contact-info">যেকোন সমস্যায় যোগাযোগ করুন: <strong>01568077460</strong></p>
-    <a href="index.html" class="order-button">মেইন পেইজে ফিরে যান</a>
+    <div class="thank-you-container" id="thankYouContainer">
+        <h3 class="thank-you-title">ধন্যবাদ!</h3>
+        <p class="thank-you-message">আপনার অর্ডার গ্রহণ করা হয়েছে।</p>
+        <p class="contact-info">যেকোনো প্রশ্নের জন্য আমাদের সাথে যোগাযোগ করুন।</p>
+    </div>
 </div>
 
 <script>
-function toggleProductOptions(productId) {
-    const optionsDiv = document.getElementById(`options-${productId}`);
-    const productCheckbox = document.getElementById(`product-${productId}`);
-    
-    // Show options only if product checkbox is checked
-    optionsDiv.style.display = productCheckbox.checked ? 'block' : 'none';
-}
-
-function handleOptionChange(productId, option, checkbox) {
-    const quantityInput = document.getElementById(`quantity-${productId}-${option}`);
-    if (checkbox.checked) {
-        quantityInput.value = 1; // Set quantity to 1 if option is checked
-    } else {
-        quantityInput.value = 0; // Set quantity to 0 if option is unchecked
-    }
-    updateTotal();
-}
-
-function updateQuantity(productId, option, increase) {
-    const quantityInput = document.getElementById(`quantity-${productId}-${option}`);
-    let currentValue = parseInt(quantityInput.value);
-    if (increase) {
-        currentValue++;
-    } else {
-        if (currentValue > 0) currentValue--;
-    }
-    quantityInput.value = currentValue;
-
-    // Check the corresponding option checkbox if quantity > 0
-    const checkbox = document.getElementById(`option-${productId}-${option}`);
-    if (currentValue > 0) {
-        checkbox.checked = true;
-    } else {
-        checkbox.checked = false;
+    function toggleProductOptions(productId) {
+        const options = document.getElementById(`options-${productId}`);
+        options.style.display = options.style.display === 'none' ? 'block' : 'none';
     }
 
-    updateTotal();
-}
-
-function updateTotal() {
-    let total = 0;
-
-    // Calculate total price based on selected options and quantities
-    const productCheckbox = document.getElementById('product-1');
-    if (productCheckbox.checked) {
-        const noHijabCheckbox = document.getElementById('option-1-no-hijab');
-        const withHijabCheckbox = document.getElementById('option-1-with-hijab');
-
-        if (noHijabCheckbox.checked) {
-            total += 1200 * parseInt(document.getElementById('quantity-1-no-hijab').value);
+    function handleOptionChange(productId, optionType, checkbox) {
+        const quantityInput = document.getElementById(`quantity-${productId}-${optionType}`);
+        
+        if (checkbox.checked) {
+            quantityInput.value = 1; // Automatically set quantity to 1
+            // Uncheck the other option if it's selected
+            const otherOption = optionType === 'no-hijab' ? 'with-hijab' : 'no-hijab';
+            document.getElementById(`option-${productId}-${otherOption}`).checked = false;
+        } else {
+            quantityInput.value = 0; // Set quantity to 0 if unchecked
         }
-        if (withHijabCheckbox.checked) {
-            total += 1300 * parseInt(document.getElementById('quantity-1-with-hijab').value);
-        }
+
+        updateTotalPrice();
     }
 
-    document.getElementById('totalPrice').innerText = `মোট: ৳ ${total}`;
-}
+    function updateQuantity(productId, optionType, increase) {
+        const quantityInput = document.getElementById(`quantity-${productId}-${optionType}`);
+        let currentQuantity = parseInt(quantityInput.value);
 
-function confirmOrder() {
-    document.getElementById('orderContainer').style.display = 'none';
-    document.getElementById('thankYouContainer').style.display = 'block';
-}
+        if (increase) {
+            currentQuantity++;
+        } else if (currentQuantity > 0) {
+            currentQuantity--;
+        }
+        
+        quantityInput.value = currentQuantity;
+
+        // Check the corresponding checkbox if quantity > 0
+        const checkbox = document.getElementById(`option-${productId}-${optionType}`);
+        checkbox.checked = currentQuantity > 0;
+
+        updateTotalPrice();
+    }
+
+    function updateTotalPrice() {
+        let total = 0;
+
+        for (let i = 1; i <= 8; i++) { // Adjusting to include the new products
+            for (const option of ['no-hijab', 'with-hijab']) {
+                const quantity = parseInt(document.getElementById(`quantity-${i}-${option}`).value);
+                const price = parseInt(document.getElementById(`option-${i}-${option}`).value) || 0;
+                total += quantity * price;
+            }
+        }
+
+        document.getElementById('totalPrice').textContent = `মোট মূল্য: ৳ ${total}`;
+    }
+
+    function submitOrder() {
+        document.getElementById('orderContainer').style.display = 'none';
+        document.getElementById('thankYouContainer').style.display = 'block';
+    }
 </script>
+
 </body>
 </html>

@@ -50,8 +50,8 @@
         }
         .product-item {
             margin-bottom: 15px;
-            display: flex; /* Flexbox to align items */
-            align-items: center; /* Center vertically */
+            display: flex;
+            align-items: center;
         }
         .product-name {
             font-size: 16px;
@@ -63,10 +63,10 @@
             vertical-align: middle;
         }
         .options {
-            margin-left: 10px; /* Space between image and options */
+            margin-left: 10px;
         }
         .option-container {
-            margin-top: 5px; /* Space between option containers */
+            margin-top: 5px;
         }
         .quantity-container {
             display: flex;
@@ -137,7 +137,7 @@
             margin-top: 20px;
         }
         .delivery-section label {
-            display: block; /* Ensure radio buttons stack */
+            display: block;
             margin-bottom: 10px;
         }
     </style>
@@ -221,137 +221,90 @@
             </div>
         </div>
 
-        <div class="product-item">
-            <input type="checkbox" id="product-3" onchange="toggleProductOptions(3)">
-            <img src="441871073_122114791544308633_6659639184119792996_n_processed.jpg" alt="Borka 3" class="product-image">            
-            <div class="options" id="options-3" style="display: none;">
-                <div class="option-container">
-                    <label>
-                        <input type="checkbox" id="option-3-no-hijab" value="1200" onchange="updateTotal()"> হিজাব ছাড়া - ৳ ১২০০
-                    </label>
-                    <div class="quantity-container">
-                        <button class="quantity-btn" onclick="updateQuantity(3, 'no-hijab', false)">-</button>
-                        <input type="number" id="quantity-3-no-hijab" value="0" style="width: 50px; text-align: center;" readonly>
-                        <button class="quantity-btn" onclick="updateQuantity(3, 'no-hijab', true)">+</button>
-                    </div>
-                </div>
-                <div class="option-container">
-                    <label>
-                        <input type="checkbox" id="option-3-with-hijab" value="1300" onchange="updateTotal()"> হিজাব সহ - ৳ ১৩০০
-                    </label>
-                    <div class="quantity-container">
-                        <button class="quantity-btn" onclick="updateQuantity(3, 'with-hijab', false)">-</button>
-                        <input type="number" id="quantity-3-with-hijab" value="0" style="width: 50px; text-align: center;" readonly>
-                        <button class="quantity-btn" onclick="updateQuantity(3, 'with-hijab', true)">+</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <div class="total-price" id="totalPrice">মোট মূল্য: ৳ ০</div>
     </div>
 
-    <!-- Delivery Section -->
-    <div class="delivery-section">
-        <h3>ডেলিভারি চার্জ</h3>
-        <div>
-            <label>
-                <input type="radio" name="delivery" value="inside-dhaka" onchange="updateTotal()" checked> 
-                ঢাকা শহরের ভিতরে - ৳ ১০০
-            </label>
-            <label>
-                <input type="radio" name="delivery" value="outside-dhaka" onchange="updateTotal()"> 
-                ঢাকা শহরের বাইরে - ৳ ২০০
-            </label>
-        </div>
+    <button class="order-button" id="submitOrderButton" onclick="submitOrder()">অর্ডার দিন</button>
+
+    <div class="thank-you-container" id="thankYouMessage">
+        <h3 class="thank-you-title">ধন্যবাদ!</h3>
+        <p class="thank-you-message">আপনার অর্ডার সফলভাবে গ্রহণ করা হয়েছে।</p>
+        <p class="contact-info">যদি আপনার কোনো প্রশ্ন থাকে, অনুগ্রহ করে আমাদের সাথে যোগাযোগ করুন।</p>
     </div>
-
-    <div class="total-price" id="totalPrice">মোট মূল্য: ৳ ১০০</div>
-    <button class="order-button" onclick="placeOrder()">অর্ডার করুন</button>
-</div>
-
-<div class="thank-you-container" id="thankYouContainer">
-    <h2 class="thank-you-title">অর্ডার করার জন্য ধন্যবাদ!</h2>
-    <p class="thank-you-message">খুব শিগ্রই আপনার সাথে কলে যোগাযোগ করা হবে।</p>
-    <p class="contact-info">যেকোন সমস্যায় কল করুন ০১৫৬৮০৭৭৪৬০ নাম্বারে।</p>
 </div>
 
 <script>
+    let totalPrice = 0;
+
     function toggleProductOptions(productId) {
         const options = document.getElementById(`options-${productId}`);
-        options.style.display = options.style.display === 'none' ? 'block' : 'none';
+        options.style.display = options.style.display === "none" ? "block" : "none";
+        updateTotal();
     }
 
-    function updateQuantity(productId, option, increment) {
-        const quantityInput = document.getElementById(`quantity-${productId}-${option}`);
-        let quantity = parseInt(quantityInput.value);
-
+    function updateQuantity(productId, optionType, increment) {
+        const quantityInput = document.getElementById(`quantity-${productId}-${optionType}`);
+        let currentQuantity = parseInt(quantityInput.value);
         if (increment) {
-            quantity += 1;
+            currentQuantity++;
         } else {
-            if (quantity > 0) {
-                quantity -= 1;
+            if (currentQuantity > 0) {
+                currentQuantity--;
             }
         }
-        quantityInput.value = quantity;
+        quantityInput.value = currentQuantity;
         updateTotal();
     }
 
     function updateTotal() {
-        let total = 0;
-        const deliveryCharge = document.querySelector('input[name="delivery"]:checked').value === 'inside-dhaka' ? 100 : 200;
-        total += deliveryCharge;
-
-        for (let i = 1; i <= 3; i++) { // Update to your number of products
-            const options = document.getElementById(`options-${i}`);
-            if (options.style.display !== 'none') {
-                const noHijabCheckbox = document.getElementById(`option-${i}-no-hijab`);
-                const withHijabCheckbox = document.getElementById(`option-${i}-with-hijab`);
-
-                if (noHijabCheckbox.checked) {
-                    total += parseInt(noHijabCheckbox.value) * parseInt(document.getElementById(`quantity-${i}-no-hijab`).value);
-                }
-                if (withHijabCheckbox.checked) {
-                    total += parseInt(withHijabCheckbox.value) * parseInt(document.getElementById(`quantity-${i}-with-hijab`).value);
-                }
+        totalPrice = 0;
+        // Product 1
+        if (document.getElementById('product-1').checked) {
+            if (document.getElementById('option-1-no-hijab').checked) {
+                totalPrice += 1200 * parseInt(document.getElementById('quantity-1-no-hijab').value);
+            }
+            if (document.getElementById('option-1-with-hijab').checked) {
+                totalPrice += 1300 * parseInt(document.getElementById('quantity-1-with-hijab').value);
             }
         }
-
-        document.getElementById('totalPrice').innerText = `মোট মূল্য: ৳ ${total}`;
+        // Product 2
+        if (document.getElementById('product-2').checked) {
+            if (document.getElementById('option-2-no-hijab').checked) {
+                totalPrice += 1200 * parseInt(document.getElementById('quantity-2-no-hijab').value);
+            }
+            if (document.getElementById('option-2-with-hijab').checked) {
+                totalPrice += 1300 * parseInt(document.getElementById('quantity-2-with-hijab').value);
+            }
+        }
+        // Update total price display
+        document.getElementById('totalPrice').innerText = `মোট মূল্য: ৳ ${totalPrice}`;
     }
 
-    function placeOrder() {
-    const orderContainer = document.getElementById('orderContainer');
-    const thankYouContainer = document.getElementById('thankYouContainer');
-    
-    // অর্ডার তথ্য সংগ্রহ করা
-    const order = {
-        name: document.getElementById('name').value,
-        address: document.getElementById('address').value,
-        phone: document.getElementById('phone').value,
-        size: document.getElementById('size').value,
-        product1: {
-            quantity: parseInt(document.getElementById('quantity-1-no-hijab').value) + parseInt(document.getElementById('quantity-1-with-hijab').value),
-            option: document.getElementById('option-1-no-hijab').checked ? 'হিজাব ছাড়া' : 'হিজাব সহ'
-        },
-        product2: {
-            quantity: parseInt(document.getElementById('quantity-2-no-hijab').value) + parseInt(document.getElementById('quantity-2-with-hijab').value),
-            option: document.getElementById('option-2-no-hijab').checked ? 'হিজাব ছাড়া' : 'হিজাব সহ'
-        },
-        product3: {
-            quantity: parseInt(document.getElementById('quantity-3-no-hijab').value) + parseInt(document.getElementById('quantity-3-with-hijab').value),
-            option: document.getElementById('option-3-no-hijab').checked ? 'হিজাব ছাড়া' : 'হিজাব সহ'
-        },
-        delivery: document.querySelector('input[name="delivery"]:checked').value,
-        totalPrice: document.getElementById('totalPrice').innerText.replace('মোট মূল্য: ৳ ', '')
-    };
+    function submitOrder() {
+        const order = {
+            name: document.getElementById('name').value,
+            address: document.getElementById('address').value,
+            phone: document.getElementById('phone').value,
+            size: document.getElementById('size').value,
+            product1: {
+                quantity: parseInt(document.getElementById('quantity-1-no-hijab').value) + parseInt(document.getElementById('quantity-1-with-hijab').value),
+                option: document.getElementById('option-1-no-hijab').checked ? 'no-hijab' : (document.getElementById('option-1-with-hijab').checked ? 'with-hijab' : '')
+            },
+            product2: {
+                quantity: parseInt(document.getElementById('quantity-2-no-hijab').value) + parseInt(document.getElementById('quantity-2-with-hijab').value),
+                option: document.getElementById('option-2-no-hijab').checked ? 'no-hijab' : (document.getElementById('option-2-with-hijab').checked ? 'with-hijab' : '')
+            },
+            delivery: "Delivery Option", // Modify as per your delivery options
+            totalPrice: totalPrice
+        };
 
-    // Google Apps Script-এ অর্ডার পাঠানো
-    google.script.run.saveOrder(order);
-    
-    // ফর্ম লুকানো এবং ধন্যবাদ বার্তা দেখানো
-    orderContainer.style.display = 'none';
-    thankYouContainer.style.display = 'block';
-}
+        google.script.run.withSuccessHandler(showThankYouMessage).saveOrder(order);
+    }
+
+    function showThankYouMessage() {
+        document.getElementById('orderContainer').style.display = 'none';
+        document.getElementById('thankYouMessage').style.display = 'block';
+    }
 </script>
-
 </body>
 </html>

@@ -318,59 +318,39 @@
         document.getElementById('totalPrice').innerText = `মোট মূল্য: ৳ ${total}`;
     }
 
-    <script>
-    // নতুন submitOrder ফাংশন
-    function submitOrder(order) {
-        fetch('https://script.google.com/macros/s/AKfycbweAHHUkO7yzna9iISCNq_wiue4nQmKGm45VTRKs1HmH1x-Uju4JjctHn_uhJMm6U3N/exec', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(order),
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log('Success:', data);
-            const orderContainer = document.getElementById('orderContainer');
-            const thankYouContainer = document.getElementById('thankYouContainer');
-            // ফর্ম লুকানো এবং ধন্যবাদ বার্তা দেখানো
-            orderContainer.style.display = 'none';
-            thankYouContainer.style.display = 'block';
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-        });
-    }
-
-    // আগের placeOrder ফাংশনটি পরিবর্তন করুন
     function placeOrder() {
-        // অর্ডার তথ্য সংগ্রহ করা
-        const order = {
-            name: document.getElementById('name').value,
-            address: document.getElementById('address').value,
-            phone: document.getElementById('phone').value,
-            size: document.getElementById('size').value,
-            product1: {
-                quantity: parseInt(document.getElementById('quantity-1-no-hijab').value) + parseInt(document.getElementById('quantity-1-with-hijab').value),
-                option: document.getElementById('option-1-no-hijab').checked ? 'হিজাব ছাড়া' : 'হিজাব সহ'
-            },
-            product2: {
-                quantity: parseInt(document.getElementById('quantity-2-no-hijab').value) + parseInt(document.getElementById('quantity-2-with-hijab').value),
-                option: document.getElementById('option-2-no-hijab').checked ? 'হিজাব ছাড়া' : 'হিজাব সহ'
-            },
-            product3: {
-                quantity: parseInt(document.getElementById('quantity-3-no-hijab').value) + parseInt(document.getElementById('quantity-3-with-hijab').value),
-                option: document.getElementById('option-3-no-hijab').checked ? 'হিজাব ছাড়া' : 'হিজাব সহ'
-            },
-            delivery: document.querySelector('input[name="delivery"]:checked').value,
-            totalPrice: document.getElementById('totalPrice').innerText.replace('মোট মূল্য: ৳ ', '')
-        };
+    const orderContainer = document.getElementById('orderContainer');
+    const thankYouContainer = document.getElementById('thankYouContainer');
+    
+    // অর্ডার তথ্য সংগ্রহ করা
+    const order = {
+        name: document.getElementById('name').value,
+        address: document.getElementById('address').value,
+        phone: document.getElementById('phone').value,
+        size: document.getElementById('size').value,
+        product1: {
+            quantity: parseInt(document.getElementById('quantity-1-no-hijab').value) + parseInt(document.getElementById('quantity-1-with-hijab').value),
+            option: document.getElementById('option-1-no-hijab').checked ? 'হিজাব ছাড়া' : 'হিজাব সহ'
+        },
+        product2: {
+            quantity: parseInt(document.getElementById('quantity-2-no-hijab').value) + parseInt(document.getElementById('quantity-2-with-hijab').value),
+            option: document.getElementById('option-2-no-hijab').checked ? 'হিজাব ছাড়া' : 'হিজাব সহ'
+        },
+        product3: {
+            quantity: parseInt(document.getElementById('quantity-3-no-hijab').value) + parseInt(document.getElementById('quantity-3-with-hijab').value),
+            option: document.getElementById('option-3-no-hijab').checked ? 'হিজাব ছাড়া' : 'হিজাব সহ'
+        },
+        delivery: document.querySelector('input[name="delivery"]:checked').value,
+        totalPrice: document.getElementById('totalPrice').innerText.replace('মোট মূল্য: ৳ ', '')
+    };
 
-        // নতুন submitOrder ফাংশন কল করুন
-        submitOrder(order);
-    }
-</script>
-
+    // Google Apps Script-এ অর্ডার পাঠানো
+    google.script.run.saveOrder(order);
+    
+    // ফর্ম লুকানো এবং ধন্যবাদ বার্তা দেখানো
+    orderContainer.style.display = 'none';
+    thankYouContainer.style.display = 'block';
+}
 </script>
 
 </body>

@@ -1,134 +1,335 @@
-<!DOCTYPE html>
 <html lang="bn">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>প্রিমিয়াম হেয়ার কেয়ার | HairCareBD</title>
-    <!-- Facebook Pixel Code (ধাপ ২ অনুযায়ী) -->
-    <script>
-        !function(f,b,e,v,n,t,s)
-        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-        n.queue=[];t=b.createElement(e);t.async=!0;
-        t.src=v;s=b.getElementsByTagName(e)[0];
-        s.parentNode.insertBefore(t,s)}(window, document,'script',
-        'https://connect.facebook.net/en_US/fbevents.js');
-        fbq('init', 'YOUR_PIXEL_ID'); // আপনার পিক্সেল আইডি দিন
-        fbq('track', 'PageView');
-    </script>
+    <title>Order Form</title>
     <style>
-        /* Basic CSS */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Kalpurush', Arial, sans-serif;
-        }
-
         body {
-            background-color: #fff9f0;
+            margin-bottom: 50px;
+            font-family: Arial, sans-serif;
+            background-color: #e6f7e6;
+            height: 100vh;
+        }
+        .order-container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #ccf0d1;
+            padding: 20px;
+            border: 2px solid #00b050;
+            border-radius: 10px;
+        }
+        .title {
+            text-align: center;
+            color: #004d00;
+            padding: 15px;
+            border-bottom: 2px solid #00b050;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            font-size: 14px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-top: 5px;
         }
 
-        .header {
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
-                        url('https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9') center/cover;
-            color: white;
-            padding: 2rem;
-            text-align: center;
-            height: 80vh;
+        .order-details {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.product-item {
+    width: calc(33.33% - 10px); /* প্রতিটি পণ্যের জন্য 33.33% জায়গা */
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+        .product-name {
+            font-size: 16px;
+        }
+        .product-image {
+            width: 50px;
+            height: 50px;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+        .options {
+            margin-left: 10px;
+        }
+        .option-container {
+            margin-top: 5px;
+        }
+        .quantity-container {
             display: flex;
             align-items: center;
-            justify-content: center;
+            margin-left: 10px;
         }
-
-        .header h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-
-        .cta-button {
-            background: #ff6b6b;
-            color: white;
-            padding: 1rem 2rem;
-            border: none;
-            border-radius: 25px;
-            font-size: 1.2rem;
+        .quantity-btn {
+            font-size: 16px;
+            padding: 5px 10px;
             cursor: pointer;
-            transition: 0.3s;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            background-color: #f2f2f2;
+            margin: 0 5px;
         }
-
-        .features {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-            padding: 4rem 2rem;
-            background: white;
+        .total-price {
+            font-size: 18px;
+            font-weight: bold;
+            color: #222;
+            text-align: right;
+            margin-top: 10px;
         }
-
-        .feature-box {
+        .order-button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            font-size: 18px;
+            color: #fff;
+            background-color: #00b050;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
             text-align: center;
-            padding: 2rem;
+            margin-top: 20px;
+        }
+        .order-button:hover {
+            background-color: #009543;
+        }
+        .thank-you-container {
+            display: none;
+            text-align: center;
+            background-color: #ccf0d1;
+            padding: 30px;
             border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin: 20px auto;
+            max-width: 600px;
         }
-
-        .testimonial {
-            background: #f8f9fa;
-            padding: 4rem 2rem;
-            text-align: center;
+        .thank-you-title {
+            font-size: 24px;
+            color: #004d00;
+            margin-bottom: 20px;
         }
-
-        footer {
-            background: #333;
-            color: white;
-            padding: 2rem;
-            text-align: center;
+        .thank-you-message {
+            font-size: 18px;
+            color: #222;
+            margin-bottom: 20px;
         }
-
-        @media (max-width: 768px) {
-            .features {
-                grid-template-columns: 1fr;
-            }
+        .contact-info {
+            font-size: 16px;
+            color: #555;
+        }
+        .delivery-section {
+            background-color: #e0f7e0;
+            border: 1px solid #00b050;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        .delivery-section label {
+            display: block;
+            margin-bottom: 10px;
         }
     </style>
 </head>
 <body>
-    <!-- হিরো সেকশন -->
-    <header class="header">
-        <div>
-            <h1>প্রাকৃতিক উপাদানে তৈরি প্রিমিয়াম হেয়ার অয়েল</h1>
-            <p>অর্ডার করুন এখনই এবং পেয়ে যান ৩০% ডিসকাউন্ট!</p>
-            <button class="cta-button" onclick="fbq('track', 'Lead')">অর্ডার করুন</button>
-        </div>
-    </header>
 
-    <!-- USP সেকশন -->
-    <section class="features">
-        <div class="feature-box">
-            <h3>১০০% ন্যাচারাল</h3>
-            <p>কোনো কেমিক্যাল বা পার্শ্বপ্রতিক্রিয়া নেই</p>
-        </div>
-        <div class="feature-box">
-            <h3>বিনামূল্যে ডেলিভারি</h3>
-            <p>ঢাকা শহরে ২৪ ঘণ্টার মধ্যে ডেলিভারি</p>
-        </div>
-        <div class="feature-box">
-            <h3>গ্যারান্টিযুক্ত ফলাফল</h3>
-            <p>৩০ দিনের মানি ব্যাক গ্যারান্টি</p>
-        </div>
-    </section>
+<div class="order-container" id="orderContainer">
+    <h2 class="title">অর্ডার করতে নিচে তথ্যগুলো দিন</h2>
+    
+    <div class="form-group">
+        <label for="name">আপনার নাম (optional)</label>
+        <input type="text" id="name" placeholder="নাম লিখুন">
+    </div>
+    <div class="form-group">
+        <label for="address">সম্পূর্ণ ঠিকানা (optional)</label>
+        <input type="text" id="address" placeholder="House number and street name">
+    </div>
+    <div class="form-group">
+        <label for="phone">ফোন নাম্বার (optional)</label>
+        <input type="text" id="phone" placeholder="ফোন নাম্বার লিখুন">
+    </div>
+    <div class="form-group">
+        <label for="size">সাইজ (optional)</label>
+        <input type="text" id="size" placeholder="আপনার সাইজ লিখুন">
+    </div>
 
-    <!-- টেস্টিমোনিয়াল -->
-    <section class="testimonial">
-        <h2>গ্রাহকদের মন্তব্য</h2>
-        <blockquote>"এই অয়েল ব্যবহার করে আমার চুল পড়া কমেছে ৯০%!" - রহিমা, ঢাকা</blockquote>
-    </section>
+    <div class="order-details">
+        <h3 align="center">Your Products</h3><br>
+        <div class="product-item">
+            <input type="checkbox" id="product-1" onchange="toggleProductOptions(1)">
+            <img src="441871073_122114791544308633_6659639184119792996_n_processed.jpg" alt="Borka 1" class="product-image">            
+            <div class="options" id="options-1" style="display: none;">
+                <div class="option-container">
+                    <label>
+                        <input type="checkbox" id="option-1-no-hijab" value="1200" onchange="updateTotal()"> হিজাব ছাড়া - ৳ ১২০০
+                    </label>
+                    <div class="quantity-container">
+                        <button class="quantity-btn" onclick="updateQuantity(1, 'no-hijab', false)">-</button>
+                        <input type="number" id="quantity-1-no-hijab" value="0" style="width: 50px; text-align: center;" readonly>
+                        <button class="quantity-btn" onclick="updateQuantity(1, 'no-hijab', true)">+</button>
+                    </div>
+                </div>
+                <div class="option-container">
+                    <label>
+                        <input type="checkbox" id="option-1-with-hijab" value="1300" onchange="updateTotal()"> হিজাব সহ - ৳ ১৩০০
+                    </label>
+                    <div class="quantity-container">
+                        <button class="quantity-btn" onclick="updateQuantity(1, 'with-hijab', false)">-</button>
+                        <input type="number" id="quantity-1-with-hijab" value="0" style="width: 50px; text-align: center;" readonly>
+                        <button class="quantity-btn" onclick="updateQuantity(1, 'with-hijab', true)">+</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+ <div class="product-item">
+            <input type="checkbox" id="product-1" onchange="toggleProductOptions(1)">
+            <img src="441871073_122114791544308633_6659639184119792996_n_processed.jpg" alt="Borka 1" class="product-image">            
+            <div class="options" id="options-1" style="display: none;">
+                <div class="option-container">
+                    <label>
+                        <input type="checkbox" id="option-1-no-hijab" value="1200" onchange="updateTotal()"> হিজাব ছাড়া - ৳ ১২০০
+                    </label>
+                    <div class="quantity-container">
+                        <button class="quantity-btn" onclick="updateQuantity(1, 'no-hijab', false)">-</button>
+                        <input type="number" id="quantity-1-no-hijab" value="0" style="width: 50px; text-align: center;" readonly>
+                        <button class="quantity-btn" onclick="updateQuantity(1, 'no-hijab', true)">+</button>
+                    </div>
+                </div>
+                <div class="option-container">
+                    <label>
+                        <input type="checkbox" id="option-1-with-hijab" value="1300" onchange="updateTotal()"> হিজাব সহ - ৳ ১৩০০
+                    </label>
+                    <div class="quantity-container">
+                        <button class="quantity-btn" onclick="updateQuantity(1, 'with-hijab', false)">-</button>
+                        <input type="number" id="quantity-1-with-hijab" value="0" style="width: 50px; text-align: center;" readonly>
+                        <button class="quantity-btn" onclick="updateQuantity(1, 'with-hijab', true)">+</button>
+                    </div>
+                </div>
+            </div>
+        </div>      <!-- Add more product items here -->
+        <div class="product-item">
+            <input type="checkbox" id="product-2" onchange="toggleProductOptions(2)">
+            <img src="441871073_122114791544308633_6659639184119792996_n_processed.jpg" alt="Borka 2" class="product-image">            
+            <div class="options" id="options-2" style="display: none;">
+                <div class="option-container">
+                    <label>
+                        <input type="checkbox" id="option-2-no-hijab" value="1200" onchange="updateTotal()"> হিজাব ছাড়া - ৳ ১২০০
+                    </label>
+                    <div class="quantity-container">
+                        <button class="quantity-btn" onclick="updateQuantity(2, 'no-hijab', false)">-</button>
+                        <input type="number" id="quantity-2-no-hijab" value="0" style="width: 50px; text-align: center;" readonly>
+                        <button class="quantity-btn" onclick="updateQuantity(2, 'no-hijab', true)">+</button>
+                    </div>
+                </div>
+                <div class="option-container">
+                    <label>
+                        <input type="checkbox" id="option-2-with-hijab" value="1300" onchange="updateTotal()"> হিজাব সহ - ৳ ১৩০০
+                    </label>
+                    <div class="quantity-container">
+                        <button class="quantity-btn" onclick="updateQuantity(2, 'with-hijab', false)">-</button>
+                        <input type="number" id="quantity-2-with-hijab" value="0" style="width: 50px; text-align: center;" readonly>
+                        <button class="quantity-btn" onclick="updateQuantity(2, 'with-hijab', true)">+</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-    <!-- ফুটার -->
-    <footer>
-        <p>যোগাযোগ: ০১৭১২-৩৪৫৬৭৮ | ইমেইল: care@hairoilbd.com</p>
-        <p>© ২০২৪ HairCareBD. সকল অধিকার সংরক্ষিত</p>
-    </footer>
+        <div class="total-price" id="totalPrice">মোট মূল্য: ৳ ০</div>
+    </div>
+
+    <button class="order-button" id="submitOrderButton" onclick="submitOrder()">অর্ডার দিন</button>
+
+    <div class="thank-you-container" id="thankYouMessage">
+        <h3 class="thank-you-title">ধন্যবাদ!</h3>
+        <p class="thank-you-message">আপনার অর্ডার সফলভাবে গ্রহণ করা হয়েছে।</p>
+        <p class="contact-info">যদি আপনার কোনো প্রশ্ন থাকে, অনুগ্রহ করে আমাদের সাথে যোগাযোগ করুন।</p>
+    </div>
+</div>
+
+<script>
+    let totalPrice = 0;
+
+    function toggleProductOptions(productId) {
+        const options = document.getElementById(`options-${productId}`);
+        options.style.display = options.style.display === "none" ? "block" : "none";
+        updateTotal();
+    }
+
+    function updateQuantity(productId, optionType, increment) {
+        const quantityInput = document.getElementById(`quantity-${productId}-${optionType}`);
+        let currentQuantity = parseInt(quantityInput.value);
+        if (increment) {
+            currentQuantity++;
+        } else {
+            if (currentQuantity > 0) {
+                currentQuantity--;
+            }
+        }
+        quantityInput.value = currentQuantity;
+        updateTotal();
+    }
+
+    function updateTotal() {
+        totalPrice = 0;
+        // Product 1
+        if (document.getElementById('product-1').checked) {
+            if (document.getElementById('option-1-no-hijab').checked) {
+                totalPrice += 1200 * parseInt(document.getElementById('quantity-1-no-hijab').value);
+            }
+            if (document.getElementById('option-1-with-hijab').checked) {
+                totalPrice += 1300 * parseInt(document.getElementById('quantity-1-with-hijab').value);
+            }
+        }
+        // Product 2
+        if (document.getElementById('product-2').checked) {
+            if (document.getElementById('option-2-no-hijab').checked) {
+                totalPrice += 1200 * parseInt(document.getElementById('quantity-2-no-hijab').value);
+            }
+            if (document.getElementById('option-2-with-hijab').checked) {
+                totalPrice += 1300 * parseInt(document.getElementById('quantity-2-with-hijab').value);
+            }
+        }
+        // Update total price display
+        document.getElementById('totalPrice').innerText = `মোট মূল্য: ৳ ${totalPrice}`;
+    }
+
+    function submitOrder() {
+        const order = {
+            name: document.getElementById('name').value,
+            address: document.getElementById('address').value,
+            phone: document.getElementById('phone').value,
+            size: document.getElementById('size').value,
+            product1: {
+                quantity: parseInt(document.getElementById('quantity-1-no-hijab').value) + parseInt(document.getElementById('quantity-1-with-hijab').value),
+                option: document.getElementById('option-1-no-hijab').checked ? 'no-hijab' : (document.getElementById('option-1-with-hijab').checked ? 'with-hijab' : '')
+            },
+            product2: {
+                quantity: parseInt(document.getElementById('quantity-2-no-hijab').value) + parseInt(document.getElementById('quantity-2-with-hijab').value),
+                option: document.getElementById('option-2-no-hijab').checked ? 'no-hijab' : (document.getElementById('option-2-with-hijab').checked ? 'with-hijab' : '')
+            },
+            delivery: "Delivery Option", // Modify as per your delivery options
+            totalPrice: totalPrice
+        };
+
+        google.script.run.withSuccessHandler(showThankYouMessage).saveOrder(order);
+    }
+
+    function showThankYouMessage() {
+        document.getElementById('orderContainer').style.display = 'none';
+        document.getElementById('thankYouMessage').style.display = 'block';
+    }
+</script>
 </body>
 </html>

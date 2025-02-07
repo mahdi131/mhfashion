@@ -99,7 +99,7 @@
             productDiv.classList.add('product');
             
             productDiv.innerHTML = `
-                <label>Product Type:</label><br>
+                <label>Product Type:</label>
                 <div class="checkbox-group">
                     <input type="radio" class="productType" name="product_${productCount}" value="Star" id="star_${productCount}">
                     <label for="star_${productCount}">Star</label>
@@ -129,22 +129,45 @@
                     <label for="size52_${productCount}">52</label>
                     <input type="radio" name="size_${productCount}" value="54" id="size54_${productCount}">
                     <label for="size54_${productCount}">54</label>
-                    <input type="radio" name="size_${productCount}" value="56" id="size56_${productCount}">
-                    <label for="size56_${productCount}">56</label>
-                    <input type="radio" name="size_${productCount}" value="58" id="size58_${productCount}">
-                    <label for="size58_${productCount}">58</label>
                 </div><br>
                 
                 <label>Hijab:</label>
                 <div class="checkbox-group">
-                    <input type="radio" name="hijab_${productCount}" value="Yes" id="hijab_yes_${productCount}">
+                    <input type="radio" name="hijab_${productCount}" value="Hijab" id="hijab_yes_${productCount}">
                     <label for="hijab_yes_${productCount}">Yes</label>
-                    <input type="radio" name="hijab_${productCount}" value="No" id="hijab_no_${productCount}">
+                    <input type="radio" name="hijab_${productCount}" value="" id="hijab_no_${productCount}" checked>
                     <label for="hijab_no_${productCount}">No</label>
                 </div>
             `;
             document.getElementById('products').appendChild(productDiv);
         }
+
+        document.getElementById('orderForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            let name = document.getElementById('name').value;
+            let phone = document.getElementById('phone').value;
+            let address = document.getElementById('address').value;
+            let cod = document.getElementById('cod').value;
+            let products = [];
+
+            document.querySelectorAll('.product').forEach((product, index) => {
+                let type = product.querySelector(`input[name="product_${index+1}"]:checked`)?.value || "";
+                let color = product.querySelector(`input[name="color_${index+1}"]:checked`)?.value || "";
+                let size = product.querySelector(`input[name="size_${index+1}"]:checked`)?.value || "";
+                let hijab = product.querySelector(`input[name="hijab_${index+1}"]:checked`)?.value;
+
+                let productString = `${type} ${color}-${size}${hijab ? ', ' + hijab : ''}`;
+                products.push(productString);
+            });
+
+            fetch("https://script.google.com/macros/s/AKfycbxQQfAvMOk6RfSdrTAAeZa42BzHZ5OmfjBmQgLvdSLgQPL4BC4-mv2MYvC86oWX2w5T/exec", {
+                method: "POST",
+                body: JSON.stringify({ name, phone, address, cod, products }),
+                headers: { "Content-Type": "application/json" }
+            })
+            .then(response => response.text())
+            .then(data => alert("Order Submitted!"));
+        });
     </script>
 </body>
 </html>

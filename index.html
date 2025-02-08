@@ -1,4 +1,4 @@
-html code: <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -71,111 +71,222 @@ html code: <!DOCTYPE html>
         button:hover {
             background: #218838;
         }
+        .selected-options {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        .selected-options h3 {
+            margin-top: 0;
+            color: #333;
+        }
+        .selected-options ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .selected-options ul li {
+            padding: 5px 0;
+            border-bottom: 1px solid #ddd;
+        }
     </style>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            function convertToEnglishNumbers(input) {
-                return input.replace(/[০-৯]/g, d => "০১২৩৪৫৬৭৮৯".indexOf(d));
-            }
-
-            function addProduct() {
-                let productDiv = document.createElement("div");
-                productDiv.className = "product";
-                productDiv.innerHTML = 
-                    <label>Product Type:</label>
-                    <div class="checkbox-group">
-                        <input type="radio" name="productType" value="Star" id="star"><label for="star">Star</label>
-                        <input type="radio" name="productType" value="Pata" id="pata"><label for="pata">Pata</label>
-                        <input type="radio" name="productType" value="Disha" id="disha"><label for="disha">Disha</label>
-                    </div>
-                    <label>Color:</label>
-                    <div class="checkbox-group">
-                        <input type="radio" name="color" value="Black" id="black"><label for="black">Black</label>
-                        <input type="radio" name="color" value="Nude" id="nude"><label for="nude">Nude</label>
-                        <input type="radio" name="color" value="Green" id="green"><label for="green">Green</label>
-                        <input type="radio" name="color" value="Sky" id="sky"><label for="sky">Sky</label>
-                    </div>
-                    <label>Size:</label>
-                    <div class="checkbox-group">
-                        <input type="radio" name="size" value="50" id="size50"><label for="size50">50</label>
-                        <input type="radio" name="size" value="52" id="size52"><label for="size52">52</label>
-                        <input type="radio" name="size" value="54" id="size54"><label for="size54">54</label>
-                    </div>
-                    <label>Hijab:</label>
-                    <div class="checkbox-group">
-                        <input type="radio" name="hijab" value="Yes" id="hijabYes"><label for="hijabYes">Yes</label>
-                        <input type="radio" name="hijab" value="No" id="hijabNo"><label for="hijabNo">No</label>
-                    </div>
-                ;
-                document.getElementById("products").appendChild(productDiv);
-            }
-            
-            document.getElementById("orderForm").addEventListener("submit", function(event) {
-                event.preventDefault();
-                
-                let name = document.getElementById("name").value;
-                let phone = convertToEnglishNumbers(document.getElementById("phone").value);
-                let address = document.getElementById("address").value;
-                let cod = convertToEnglishNumbers(document.getElementById("cod").value);
-                
-                let products = [];
-                document.querySelectorAll(".product").forEach(productDiv => {
-                    let productType = productDiv.querySelector('input[name="productType"]:checked')?.value;
-                    let color = productDiv.querySelector('input[name="color"]:checked')?.value;
-                    let size = productDiv.querySelector('input[name="size"]:checked')?.value;
-                    let hijab = productDiv.querySelector('input[name="hijab"]:checked')?.value;
-                    
-                    if (productType && color && size && hijab) {
-                        products.push({ productType, color, size, hijab });
-                    }
-                });
-                
-                let formData = {
-                    name,
-                    phone,
-                    address,
-                    cod,
-                    products
-                };
-                
-                // Google Apps Script URL
-                const googleScriptUrl = "https://script.google.com/macros/s/AKfycbyjwdFJH8yY2qkeBB8h3Dl3iIG35FC_4RIWNhBdnlZIKKHLfEUFI3XorrlZ3AS_pjTuXA/exec";
-                
-                fetch(googleScriptUrl, {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify(formData)
-                })
-                .then(response => response.text())
-                .then(data => {
-                    alert("Order Submitted Successfully!");
-                    document.getElementById("orderForm").reset();
-                })
-                .catch(error => {
-                    console.error("Error:", error);
-                    alert("An error occurred. Please try again.");
-                });
-            });
-            
-            window.addProduct = addProduct;
-        });
-    </script>
 </head>
 <body>
     <div class="container">
         <h2>Order Form</h2>
         <form id="orderForm">
-            <label>Name:</label> <input type="text" id="name" required><br><br>
-            <label>Phone:</label> <input type="text" id="phone" required><br><br>
-            <label>Address:</label> <input type="text" id="address" required><br><br>
-            <label>COD Amount:</label> <input type="number" id="cod" required><br><br>
-            
-            <div id="products"></div>
+            <label>Name:</label> 
+            <input type="text" id="name" required><br><br>
+
+            <label>Phone:</label> 
+            <input type="text" id="phone" required><br><br>
+
+            <label>Address:</label> 
+            <input type="text" id="address" required><br><br>
+
+            <label>COD Amount:</label> 
+            <input type="number" id="cod" required><br><br>
+
+            <!-- Product Sections will be added here dynamically -->
+            <div id="products">
+                <!-- Default Product Section -->
+                <div class="product">
+                    <label>Product Type:</label>
+                    <div class="checkbox-group">
+                        <input type="radio" name="productType1" value="Star" id="star1" onchange="updateColorOptions(1)">
+                        <label for="star1">Star</label>
+                        <input type="radio" name="productType1" value="Pata" id="pata1" onchange="updateColorOptions(1)">
+                        <label for="pata1">Pata</label>
+                        <input type="radio" name="productType1" value="Disha" id="disha1" onchange="updateColorOptions(1)">
+                        <label for="disha1">Disha</label>
+                    </div>
+
+                    <label>Color:</label>
+                    <div class="checkbox-group" id="colorGroup1">
+                        <!-- Color options will be dynamically populated here -->
+                    </div>
+
+                    <label>Size:</label>
+                    <div class="checkbox-group">
+                        <input type="radio" name="size1" value="50" id="size50_1" onchange="updateSelectedOptions()">
+                        <label for="size50_1">50</label>
+                        <input type="radio" name="size1" value="52" id="size52_1" onchange="updateSelectedOptions()">
+                        <label for="size52_1">52</label>
+                        <input type="radio" name="size1" value="54" id="size54_1" onchange="updateSelectedOptions()">
+                        <label for="size54_1">54</label>
+                    </div>
+
+                    <label>Hijab:</label>
+                    <div class="checkbox-group">
+                        <input type="radio" name="hijab1" value="Yes" id="hijabYes1" onchange="updateSelectedOptions()">
+                        <label for="hijabYes1">Yes</label>
+                        <input type="radio" name="hijab1" value="No" id="hijabNo1" onchange="updateSelectedOptions()">
+                        <label for="hijabNo1">No</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Add More Product Button -->
             <button type="button" onclick="addProduct()">Add More Product</button><br><br>
+
+            <!-- Selected Options Display -->
+            <div class="selected-options">
+                <h3>Selected Options:</h3>
+                <ul id="selectedOptionsList">
+                    <!-- Selected options will appear here -->
+                </ul>
+            </div>
+
             <button type="submit">Submit</button>
         </form>
     </div>
+
+    <script>
+        let productCount = 1; // Counter to keep track of product sections
+
+        // Color options for each product type
+        const colorOptions = {
+            Star: ["Black", "Nude", "Green", "Sky"],
+            Pata: ["Black", "Golden", "Green", "Purple"],
+            Disha: ["B", "S", "M", "O"]
+        };
+
+        // Function to update color options based on selected product type
+        function updateColorOptions(productIndex) {
+            let productType = document.querySelector(`input[name="productType${productIndex}"]:checked`)?.value;
+            let colorGroup = document.getElementById(`colorGroup${productIndex}`);
+            colorGroup.innerHTML = ""; // Clear existing color options
+
+            if (productType && colorOptions[productType]) {
+                colorOptions[productType].forEach(color => {
+                    colorGroup.innerHTML += `
+                        <input type="radio" name="color${productIndex}" value="${color}" id="${color.toLowerCase()}${productIndex}" onchange="updateSelectedOptions()">
+                        <label for="${color.toLowerCase()}${productIndex}">${color}</label>
+                    `;
+                });
+            }
+        }
+
+        // Function to add a new product section
+        function addProduct() {
+            productCount++; // Increment the counter for each new product
+            let productDiv = document.createElement("div");
+            productDiv.className = "product";
+            productDiv.innerHTML = `
+                <label>Product Type:</label>
+                <div class="checkbox-group">
+                    <input type="radio" name="productType${productCount}" value="Star" id="star${productCount}" onchange="updateColorOptions(${productCount})">
+                    <label for="star${productCount}">Star</label>
+                    <input type="radio" name="productType${productCount}" value="Pata" id="pata${productCount}" onchange="updateColorOptions(${productCount})">
+                    <label for="pata${productCount}">Pata</label>
+                    <input type="radio" name="productType${productCount}" value="Disha" id="disha${productCount}" onchange="updateColorOptions(${productCount})">
+                    <label for="disha${productCount}">Disha</label>
+                </div>
+
+                <label>Color:</label>
+                <div class="checkbox-group" id="colorGroup${productCount}">
+                    <!-- Color options will be dynamically populated here -->
+                </div>
+
+                <label>Size:</label>
+                <div class="checkbox-group">
+                    <input type="radio" name="size${productCount}" value="50" id="size50_${productCount}" onchange="updateSelectedOptions()">
+                    <label for="size50_${productCount}">50</label>
+                    <input type="radio" name="size${productCount}" value="52" id="size52_${productCount}" onchange="updateSelectedOptions()">
+                    <label for="size52_${productCount}">52</label>
+                    <input type="radio" name="size${productCount}" value="54" id="size54_${productCount}" onchange="updateSelectedOptions()">
+                    <label for="size54_${productCount}">54</label>
+                </div>
+
+                <label>Hijab:</label>
+                <div class="checkbox-group">
+                    <input type="radio" name="hijab${productCount}" value="Yes" id="hijabYes${productCount}" onchange="updateSelectedOptions()">
+                    <label for="hijabYes${productCount}">Yes</label>
+                    <input type="radio" name="hijab${productCount}" value="No" id="hijabNo${productCount}" onchange="updateSelectedOptions()">
+                    <label for="hijabNo${productCount}">No</label>
+                </div>
+            `;
+            document.getElementById("products").appendChild(productDiv);
+        }
+
+        // Function to update the selected options list
+        function updateSelectedOptions() {
+            let selectedOptionsList = document.getElementById("selectedOptionsList");
+            selectedOptionsList.innerHTML = ""; // Clear previous options
+
+            // Iterate through each product
+            for (let i = 1; i <= productCount; i++) {
+                let productType = document.querySelector(`input[name="productType${i}"]:checked`)?.value;
+                let color = document.querySelector(`input[name="color${i}"]:checked`)?.value;
+                let size = document.querySelector(`input[name="size${i}"]:checked`)?.value;
+                let hijab = document.querySelector(`input[name="hijab${i}"]:checked`)?.value;
+
+                if (productType && color && size && hijab) {
+                    selectedOptionsList.innerHTML += `
+                        <li>Product ${i}: ${productType}, Color: ${color}, Size: ${size}, Hijab: ${hijab}</li>
+                    `;
+                }
+            }
+        }
+
+        // Handle form submission
+        document.getElementById("orderForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            let name = document.getElementById("name").value;
+            let phone = document.getElementById("phone").value;
+            let address = document.getElementById("address").value;
+            let cod = document.getElementById("cod").value;
+
+            let selectedProducts = [];
+            document.querySelectorAll("#selectedOptionsList li").forEach(item => {
+                selectedProducts.push(item.textContent);
+            });
+
+            let data = {
+                name: name,
+                phone: phone,
+                address: address,
+                cod: cod,
+                products: selectedProducts.join(", ")
+            };
+
+            fetch("https://script.google.com/macros/s/AKfycbziLqxvyjwlCELt4137a2lnkwgBUZpinzeV9Ad-zTg5NSRyNlJTPIXqXNnveR701i8p/exec", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.text())
+            .then(data => {
+                alert("Order Submitted Successfully!");
+                document.getElementById("orderForm").reset();
+                productCount = 1;
+                document.getElementById("products").innerHTML = ''; // Reset product section
+                addProduct(); // Add the first product section again
+            })
+            .catch(error => console.error("Error:", error));
+        });
+    </script>
 </body>
 </html>
